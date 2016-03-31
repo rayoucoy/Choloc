@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Choloc</string>
+    <string name="title_activity_login">Login</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="login">Login</string>
+    <string name="lupapass">lupa password?</string>
+    <string name="createnew">create new account</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_register">Signup</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <!-- Strings related to signup -->
+    <string name="username">username</string>
+    <string name="email">email</string>
+    <string name="pass">password</string>
+    <string name="repass">re-type password</string>
+    <string name="mobnum">mobile number</string>
+    <string name="agree">I want to create new account in Choloc</string>
+    <string name="signup">signup</string>
+    <string name="cancel">cancel</string>
+    <string name="title_activity_chatlist">Chatlist</string>
+    <!-- Strings related to chatlist -->
+    <string name="chat">Chat</string>
+    <string name="friend">Friend</string>
+    <string name="maps">Maps</string>
+    <string name="profile">Profile</string>
+    <string name="title_activity_friend_list">FriendList</string>
+    <string name="title_activity_maps">Maps</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_change_password">Change Password</string>
+    <!-- Strings related to changepassword -->
+    <string name="save">save</string>
+    <string name="oldpass">old password</string>
+    <string name="newpass">new password</string>
+    <string name="renewpass">re-type new password</string>
+    <string name="title_activity_new_password">New Password</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+
+</resources>

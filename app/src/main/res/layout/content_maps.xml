@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MapsActivity"
+    tools:showIn="@layout/activity_maps"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_red_dark"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageButton
+            style="@style/ButtonMenu"
+            android:id="@+id/chatlist_button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/chatlist"/>
+        <ImageButton
+            style="@style/ButtonMenu"
+            android:id="@+id/friendlist_button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/friendlist"/>
+        <ImageButton
+            style="@style/ButtonMenu"
+            android:id="@+id/maps_button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/maps"/>
+        <ImageButton
+            style="@style/ButtonMenu"
+            android:id="@+id/profile_button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maps"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+    </ScrollView>
+
+</LinearLayout>
