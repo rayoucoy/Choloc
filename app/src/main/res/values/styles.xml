@@ -6,6 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="@android:attr/actionBarTabStyle">@style/tab_nav</item>
+        <item name="android:actionBarTabTextStyle">@style/actionBarTabTextStyle</item>
+    </style>
+
+    <style name="actionBarTabTextStyle" parent="android:Widget.Holo.Light.ActionBar.TabText.Inverse">
+        <item name="android:padding">1dp</item>
+    </style>
+
+    <style name="tab_nav" parent="android:style/Widget.Holo.Light.Tab">
+        <item name="android:paddingLeft">-25dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

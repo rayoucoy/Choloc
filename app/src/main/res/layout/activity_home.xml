@@ -14,36 +14,6 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageButton
-                style="@style/ButtonMenu"
-                android:id="@+id/chatlist_button"
-                android:scaleType="centerCrop"
-                android:src="@drawable/chatlist"/>
-            <ImageButton
-                style="@style/ButtonMenu"
-                android:id="@+id/friendlist_button"
-                android:scaleType="centerCrop"
-                android:src="@drawable/friendlist"/>
-            <ImageButton
-                style="@style/ButtonMenu"
-                android:id="@+id/maps_button"
-                android:scaleType="centerCrop"
-                android:src="@drawable/maps"/>
-            <ImageButton
-                style="@style/ButtonMenu"
-                android:id="@+id/profile_button"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile"/>
-
-        </LinearLayout>
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

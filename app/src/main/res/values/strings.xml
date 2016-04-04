@@ -48,4 +48,11 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
 
+    <string name="title_section1">Langkah 1</string>
+    <string name="title_section2">Langkah 2</string>
+    <string name="title_section3">Langkah 3</string>
+    <string name="title_section4">Langkah 4</string>
+    <string name="title_section5">Langkah 5</string>
+    <string name="title_section6">Langkah 6</string>
+
 </resources>

@@ -1,25 +1,19 @@
 package com.skripsi.yudha.choloc;
 
-import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -43,6 +37,52 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        final ActionBar actionBar = getSupportActionBar();
+        //actionBar.setSubtitle("Langkah 1");
+        // Specify that tabs should be displayed in the action bar.
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        //actionBar.setTitle(mSectionsPagerAdapter.getPageTitle(0));
+
+        // Create a tab listener that is called when the user changes tabs.
+        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                // show the given tab
+                mViewPager = (ViewPager) findViewById(R.id.container);
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+                // hide the given tab
+            }
+
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+                // probably ignore this event
+            }
+        };
+
+        // Add 4 tabs, specifying the tab's text and TabListener
+
+        for (int i = 0; i < 4; i++) {
+            if (i==0){
+                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.chat_image).setTabListener(tabListener));
+            }
+            else if (i==1){
+                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.friendlist_image).setTabListener(tabListener));
+            }
+            else if (i==2){
+                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.maps_image).setTabListener(tabListener));
+            }
+            else if (i==3){
+                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.profile_image).setTabListener(tabListener));
+            }
+            else if (i==4){
+                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.profile_image).setTabListener(tabListener));
+            }
+            else {
+                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.chat_image).setTabListener(tabListener));
+            }
+        }
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -50,50 +90,18 @@ public class HomeActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOnPageChangeListener(
+                new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        // When swiping between pages, select the
+                        // corresponding tab.
+                        getSupportActionBar().setSelectedNavigationItem(position);
+                        getSupportActionBar().setDisplayShowHomeEnabled(true);
+                        getSupportActionBar().setSubtitle(mSectionsPagerAdapter.getPageTitle(position));
+                    }
+                });
 
-
-        ImageButton imageButtonFriendlist = (ImageButton)findViewById(R.id.friendlist_button);
-        imageButtonFriendlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Set up the ViewPager with the sections adapter.
-                mViewPager = (ViewPager) findViewById(R.id.container);
-                mSectionsPagerAdapter.getItem(1);
-                mViewPager.setAdapter(mSectionsPagerAdapter);
-            }
-        });
-
-        ImageButton imageButtonMaps = (ImageButton)findViewById(R.id.maps_button);
-        imageButtonMaps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Set up the ViewPager with the sections adapter.
-                mViewPager = (ViewPager) findViewById(R.id.container);
-                mSectionsPagerAdapter.getItem(2);
-                mViewPager.setAdapter(mSectionsPagerAdapter);
-            }
-        });
-
-        ImageButton imageButtonProfile = (ImageButton)findViewById(R.id.profile_button);
-        imageButtonProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Set up the ViewPager with the sections adapter.
-                mViewPager = (ViewPager) findViewById(R.id.container);
-                mSectionsPagerAdapter.getItem(3);
-                mViewPager.setAdapter(mSectionsPagerAdapter);
-            }
-        });
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
     }
 
@@ -169,26 +177,38 @@ public class HomeActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position){
+                case 0 :return PlaceholderFragment.newInstance(position + 1);
+                case 1 :return PlaceholderFragment.newInstance(position + 1);
+                case 2 :return PlaceholderFragment.newInstance(position + 1);
+                case 3 :return PlaceholderFragment.newInstance(position + 1);
+                case 4 :return PlaceholderFragment.newInstance(position);
+            }
+            return null;
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 6 total pages.
+            return 4;
         }
 
+        /*
         @Override
         public CharSequence getPageTitle(int position) {
+            Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return getString(R.string.title_section1);
                 case 1:
-                    return "SECTION 2";
+                    return getString(R.string.title_section2);
                 case 2:
-                    return "SECTION 3";
+                    return getString(R.string.title_section3);
+                case 3:
+                    return getString(R.string.title_section4);
             }
             return null;
         }
+        */
     }
 }
