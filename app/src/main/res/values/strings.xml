@@ -20,8 +20,8 @@
     <string name="action_sign_in">Sign in or register</string>
     <!-- Strings related to signup -->
     <string name="username">username</string>
-    <string name="email">email</string>
-    <string name="pass">password</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
     <string name="repass">re-type password</string>
     <string name="mobnum">mobile number</string>
     <string name="agree">I want to create new account in Choloc</string>

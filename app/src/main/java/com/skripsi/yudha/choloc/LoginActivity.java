@@ -3,6 +3,7 @@ package com.skripsi.yudha.choloc;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -29,6 +30,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,10 +52,18 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+    private final String LOG_TAG = LoginActivity.class.getSimpleName();
 
     public ArrayAdapter<String> mForecastAdapter;
     String[] resultStrs = new String[1000];
-
+    boolean passwordDb = false;
+    boolean emailDb = false;
+    String id_user;
+    String username;
+    String password;
+    String no_hp;
+    String email;
+    Boolean mAuthTask;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -70,13 +80,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    // Session Management Class
+    SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,12 +110,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        // Session class instance
+        session = new SessionManagement(getApplicationContext());
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                FetchUserTask weatherTask = new FetchUserTask();
-                weatherTask.execute("");
+                emailDb = false;
+                passwordDb = false;
                 attemptLogin();
             }
         });
@@ -202,9 +217,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            UserLoginTask weatherTask = new UserLoginTask(email,password);
+            weatherTask.execute("");
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            //mAuthTask = new UserLoginTask(email, password);
+            //mAuthTask.execute((Void) null);
+            //showProgress(true);
         }
     }
 
@@ -312,7 +330,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+    public class UserLoginTask extends AsyncTask<String, Void, String[]> {
+
+        private final String LOG_TAG = UserLoginTask.class.getSimpleName();
 
         private final String mEmail;
         private final String mPassword;
@@ -321,60 +342,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmail = email;
             mPassword = password;
         }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-
-                for(int i = 0; i < 1000; i++) {
-
-                }
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-    }
-
-    public class FetchUserTask extends AsyncTask<String, Void, String[]> {
-
-
-        private final String LOG_TAG = FetchUserTask.class.getSimpleName();
-
 
         /**
          * Take the String representing the complete forecast in JSON Format and
@@ -388,6 +355,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             // These are the names of the JSON objects that need to be extracted.
             final String USER_LIST = "user";
+            final String ID_USER = "id_user";
             final String USERNAME = "username";
             final String PASSWORD = "password";
             final String NO_HP = "no_hp";
@@ -398,26 +366,42 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             int n = weatherArray.length();
             for(int i = 0; i < weatherArray.length(); i++) {
 
+                String db_id_user;
                 String db_username;
                 String db_password;
                 String db_no_hp;
                 String db_email;
 
                 // Get the JSON object representing the day
-                JSONObject dayForecast = weatherArray.getJSONObject(i);
+                JSONObject userData = weatherArray.getJSONObject(i);
 
                 // description is in a child array called "weather", which is 1 element long.
-                //JSONObject weatherObject = dayForecast.getJSONArray(USER_LIST).getJSONObject(0);
-                db_username = dayForecast.getString(USERNAME);
-                db_password = dayForecast.getString(PASSWORD);
-                db_no_hp = dayForecast.getString(NO_HP);
-                db_email = dayForecast.getString(EMAIL);
+                db_id_user = userData.getString(ID_USER);
+                db_username = userData.getString(USERNAME);
+                db_password = userData.getString(PASSWORD);
+                db_no_hp = userData.getString(NO_HP);
+                db_email = userData.getString(EMAIL).toLowerCase();
 
+                if (db_email.equals(mEmail.toLowerCase())){
+                    emailDb = true;
+                    Log.v(LOG_TAG,"Email ada di Db: " + db_email);
+                    if (db_password.equals(mPassword)){
+                        passwordDb = true;
+                        Log.v(LOG_TAG,"Password ada di Db: " + db_password);
+                        id_user = db_id_user;
+                        username = db_username;
+                        password =db_password;
+                        no_hp = db_no_hp;
+                        email = db_email;
+                    }else {
+                        Log.v(LOG_TAG,"Password tidak ada di Db ");
+                    }
+                }else{
+                    Log.v(LOG_TAG,"Email tidak ada di Db ");
+                }
 
                 // Temperatures are in a child object called "temp".  Try not to name variables
                 // "temp" when working with temperature.  It confuses everybody.
-                //JSONObject temperatureObject = dayForecast.getJSONObject(USER_LIST);
-
                 resultStrs[i] = db_username + " - " + db_password + " - " + db_no_hp + " - " + db_email;
                 Log.v(LOG_TAG, "Hasil ke " + i + ": "  + resultStrs[i]);
             }
@@ -447,15 +431,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
                 final String CHOLOC_BASE_URL = "http://luxarcadia.com/choloc/api/read_user.php";
-
-            /*
-            Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                    .appendQueryParameter(QUERY_PARAM, params[0])
-                    .appendQueryParameter(FORMAT_PARAM, format)
-                    .appendQueryParameter(UNITS_PARAM, units)
-                    .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
-                    .build();
-            */
 
                 Uri builtUri = Uri.parse(CHOLOC_BASE_URL);
 
@@ -519,6 +494,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return null;
         }
 
+        @Override
+        protected void onPostExecute(String[] strings) {
+            mAuthTask = null;
+            showProgress(false);
+
+            if (strings!=null) {
+                if(emailDb){
+                    if(passwordDb){
+                        Toast.makeText(LoginActivity.this, "Anda berhasil login!", Toast.LENGTH_SHORT).show();
+                        session.createLoginSession(id_user, username, email);
+
+                        Intent i = null;
+                        i = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(i);
+                        finish();
+
+                    }else{
+                        Toast.makeText(LoginActivity.this, "Password yang Anda masukkan salah! Silahkan ulangi kembali.", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(LoginActivity.this, "Email yang anda masukkan belum terdaftar.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            showProgress(false);
+        }
     }
+
 }
 

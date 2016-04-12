@@ -17,6 +17,10 @@ import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
 
+
+    // Session Management Class
+    SessionManagement session;
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -36,6 +40,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        // Session class instance
+        session = new SessionManagement(getApplicationContext());
+        /**
+         * Call this function whenever you want to check user login
+         * This will redirect user to LoginActivity is he is not
+         * logged in
+         * */
+        session.checkLogin();
 
         final ActionBar actionBar = getSupportActionBar();
         //actionBar.setSubtitle("Langkah 1");
@@ -122,6 +135,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }else if(id == R.id.action_logout){
+            session.logoutUser();
             return true;
         }
 
