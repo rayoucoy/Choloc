@@ -51,7 +51,9 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
 
-    private ArrayAdapter<String> mForecastAdapter;
+    public ArrayAdapter<String> mForecastAdapter;
+    String[] resultStrs = new String[1000];
+
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -100,9 +102,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //attemptLogin();
                 FetchUserTask weatherTask = new FetchUserTask();
-                weatherTask.execute();
+                weatherTask.execute("");
+                attemptLogin();
             }
         });
 
@@ -351,6 +353,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
+
+                for(int i = 0; i < 1000; i++) {
+
+                }
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
@@ -377,7 +383,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
          */
-        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
+        private String[] getWeatherDataFromJson(String forecastJsonStr)
                 throws JSONException {
 
             // These are the names of the JSON objects that need to be extracted.
@@ -389,30 +395,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             JSONObject forecastJson = new JSONObject(forecastJsonStr);
             JSONArray weatherArray = forecastJson.getJSONArray(USER_LIST);
-
-            String[] resultStrs = new String[numDays];
+            int n = weatherArray.length();
             for(int i = 0; i < weatherArray.length(); i++) {
 
-                String username;
-                String password;
-                String no_hp;
-                String email;
+                String db_username;
+                String db_password;
+                String db_no_hp;
+                String db_email;
 
                 // Get the JSON object representing the day
                 JSONObject dayForecast = weatherArray.getJSONObject(i);
 
                 // description is in a child array called "weather", which is 1 element long.
-                JSONObject weatherObject = dayForecast.getJSONArray(USER_LIST).getJSONObject(0);
-                username = weatherObject.getString(USERNAME);
-                password = weatherObject.getString(PASSWORD);
-                no_hp = weatherObject.getString(NO_HP);
-                email = weatherObject.getString(EMAIL);
+                //JSONObject weatherObject = dayForecast.getJSONArray(USER_LIST).getJSONObject(0);
+                db_username = dayForecast.getString(USERNAME);
+                db_password = dayForecast.getString(PASSWORD);
+                db_no_hp = dayForecast.getString(NO_HP);
+                db_email = dayForecast.getString(EMAIL);
+
 
                 // Temperatures are in a child object called "temp".  Try not to name variables
                 // "temp" when working with temperature.  It confuses everybody.
-                JSONObject temperatureObject = dayForecast.getJSONObject(USER_LIST);
+                //JSONObject temperatureObject = dayForecast.getJSONObject(USER_LIST);
 
-                resultStrs[i] = username + " - " + password + " - " + no_hp + " - " + email;
+                resultStrs[i] = db_username + " - " + db_password + " - " + db_no_hp + " - " + db_email;
+                Log.v(LOG_TAG, "Hasil ke " + i + ": "  + resultStrs[i]);
             }
             return resultStrs;
 
@@ -502,7 +509,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             try {
-                return getWeatherDataFromJson(forecastJsonStr, numDays);
+                return getWeatherDataFromJson(forecastJsonStr);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
@@ -512,16 +519,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return null;
         }
 
-        @Override
-        protected void onPostExecute(String[] result) {
-            if (result != null) {
-                mForecastAdapter.clear();
-                for(String dayForecastStr : result) {
-                    mForecastAdapter.add(dayForecastStr);
-                }
-                // New data is back from the server.  Hooray!
-            }
-        }
     }
 }
 
