@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +30,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +49,9 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+
+    private ArrayAdapter<String> mForecastAdapter;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -86,7 +100,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                //attemptLogin();
+                FetchUserTask weatherTask = new FetchUserTask();
+                weatherTask.execute();
             }
         });
 
@@ -345,6 +361,166 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+    }
+
+    public class FetchUserTask extends AsyncTask<String, Void, String[]> {
+
+
+        private final String LOG_TAG = FetchUserTask.class.getSimpleName();
+
+
+        /**
+         * Take the String representing the complete forecast in JSON Format and
+         * pull out the data we need to construct the Strings needed for the wireframes.
+         *
+         * Fortunately parsing is easy:  constructor takes the JSON string and converts it
+         * into an Object hierarchy for us.
+         */
+        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
+                throws JSONException {
+
+            // These are the names of the JSON objects that need to be extracted.
+            final String USER_LIST = "user";
+            final String USERNAME = "username";
+            final String PASSWORD = "password";
+            final String NO_HP = "no_hp";
+            final String EMAIL = "email";
+
+            JSONObject forecastJson = new JSONObject(forecastJsonStr);
+            JSONArray weatherArray = forecastJson.getJSONArray(USER_LIST);
+
+            String[] resultStrs = new String[numDays];
+            for(int i = 0; i < weatherArray.length(); i++) {
+
+                String username;
+                String password;
+                String no_hp;
+                String email;
+
+                // Get the JSON object representing the day
+                JSONObject dayForecast = weatherArray.getJSONObject(i);
+
+                // description is in a child array called "weather", which is 1 element long.
+                JSONObject weatherObject = dayForecast.getJSONArray(USER_LIST).getJSONObject(0);
+                username = weatherObject.getString(USERNAME);
+                password = weatherObject.getString(PASSWORD);
+                no_hp = weatherObject.getString(NO_HP);
+                email = weatherObject.getString(EMAIL);
+
+                // Temperatures are in a child object called "temp".  Try not to name variables
+                // "temp" when working with temperature.  It confuses everybody.
+                JSONObject temperatureObject = dayForecast.getJSONObject(USER_LIST);
+
+                resultStrs[i] = username + " - " + password + " - " + no_hp + " - " + email;
+            }
+            return resultStrs;
+
+        }
+        @Override
+        protected String[] doInBackground(String... params) {
+
+            // If there's no zip code, there's nothing to look up.  Verify size of params.
+            if (params.length == 0) {
+                return null;
+            }
+
+            // These two need to be declared outside the try/catch
+            // so that they can be closed in the finally block.
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+
+            // Will contain the raw JSON response as a string.
+            String forecastJsonStr = null;
+
+            int numDays = 7;
+
+            try {
+                // Construct the URL for the OpenWeatherMap query
+                // Possible parameters are avaiable at OWM's forecast API page, at
+                // http://openweathermap.org/API#forecast
+                final String CHOLOC_BASE_URL = "http://luxarcadia.com/choloc/api/read_user.php";
+
+            /*
+            Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                    .appendQueryParameter(QUERY_PARAM, params[0])
+                    .appendQueryParameter(FORMAT_PARAM, format)
+                    .appendQueryParameter(UNITS_PARAM, units)
+                    .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                    .build();
+            */
+
+                Uri builtUri = Uri.parse(CHOLOC_BASE_URL);
+
+                Log.v(LOG_TAG, "URI: " + builtUri.toString());
+
+                URL url = new URL(builtUri.toString());
+
+                // Create the request to OpenWeatherMap, and open the connection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                    // But it does make debugging a *lot* easier if you print out the completed
+                    // buffer for debugging.
+                    buffer.append(line + "\n");
+                }
+
+                if (buffer.length() == 0) {
+                    // Stream was empty.  No point in parsing.
+                    return null;
+                }
+                forecastJsonStr = buffer.toString();
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error ", e);
+                // If the code didn't successfully get the weather data, there's no point in attemping
+                // to parse it.
+                return null;
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
+                }
+            }
+
+            try {
+                return getWeatherDataFromJson(forecastJsonStr, numDays);
+            } catch (JSONException e) {
+                Log.e(LOG_TAG, e.getMessage(), e);
+                e.printStackTrace();
+            }
+
+            // This will only happen if there was an error getting or parsing the forecast.
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if (result != null) {
+                mForecastAdapter.clear();
+                for(String dayForecastStr : result) {
+                    mForecastAdapter.add(dayForecastStr);
+                }
+                // New data is back from the server.  Hooray!
+            }
         }
     }
 }
