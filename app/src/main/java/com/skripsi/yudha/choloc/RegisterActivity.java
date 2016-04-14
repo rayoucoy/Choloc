@@ -3,6 +3,8 @@ package com.skripsi.yudha.choloc;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -28,6 +30,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +44,16 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class RegisterActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+    String url_create_mhs= "http://api.vhiefa.net76.net/simple_crud/create_mhs.php";
+    // JSON Node names, ini harus sesuai yang di API
+    public static final String TAG_SUCCESS = "success";
+    public static final String TAG_NAMA_MHS = "nama";
+    public static final String TAG_NIM_MHS = "nim";
+
+    EditText EditTxtnama, EditTxtnim;
+    Button addBtn;
+    String namaStr, nimStr;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -346,5 +362,71 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             showProgress(false);
         }
     }
+
+    class CreateMhsTask extends AsyncTask<String, String, String> {
+        ProgressDialog dialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(RegisterActivity.this);
+            dialog.setMessage("Tambah User...");
+            dialog.setIndeterminate(false);
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+            params.add(new BasicNameValuePair(TAG_NAMA_MHS, namaStr));
+            params.add(new BasicNameValuePair(TAG_NIM_MHS, nimStr));
+
+            // getting JSON Object
+            // Note that create Post url accepts POST method
+            JSONObject json = jsonParser.makeHttpRequest(url_create_mhs, "POST", params);
+
+            // check for success tag
+            try {
+                int success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    // closing this screen
+                    finish();
+                } else {
+                    return "gagal_database";
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return "gagal_koneksi_or_exception";
+            }
+
+            return "sukses";
+
+        }
+
+
+        protected void onPostExecute(String result) {
+
+            super.onPostExecute(result);
+            if (result.equalsIgnoreCase("gagal_database")){
+                dialog.dismiss();
+                Toast.makeText(RegisterActivity.this, "Terjadi masalah! Silahkan cek koneksi Anda!", Toast.LENGTH_SHORT).show();
+            }
+            else if (result.equalsIgnoreCase("gagal_koneksi_or_exception")){
+                dialog.dismiss();
+                Toast.makeText(RegisterActivity.this, "Terjadi masalah! Silahkan cek koneksi Anda!",  Toast.LENGTH_SHORT).show();
+
+            }
+            else if (result.equalsIgnoreCase("sukses")){
+                dialog.dismiss();
+                Intent i = null;
+                i = new Intent(RegisterActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        }
+    }
+
 }
 
