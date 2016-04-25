@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
 
-
     // Session Management Class
     SessionManagement session;
 
@@ -124,10 +123,7 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportActionBar().setSubtitle(mSectionsPagerAdapter.getPageTitle(position));
                     }
                 });
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
