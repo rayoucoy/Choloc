@@ -12,9 +12,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends Activity{
     private Button btnRegister;
@@ -24,11 +27,10 @@ public class RegisterActivity extends Activity{
     private EditText eRePassword;
     private EditText eMobilePhone;
     private ProgressDialog pDialog;
-    private SessionManager session;
+    private SessionManagement session;
     private CheckBox cCheck;
     private Button bSignUp;
     private Button bCancel;
-
 
     public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -47,17 +49,18 @@ public class RegisterActivity extends Activity{
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        //Session Manager
+        // Session Manager
+        session = new SessionManagement(getApplicationContext());
 
         // check user udah login belum
-        if(session.isLogedIn()){
+        if(session.isLoggedIn()){
             // Kalo user udah login langsung ke menu utama
             Intent MenuUtamaAct = new Intent(RegisterActivity.this,HomeActivity.class);
             startActivity(MenuUtamaAct);
             finish();
         }
 
-        //Sign Up Button Activity
+        // Sign Up Button Activity
         bSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +95,7 @@ public class RegisterActivity extends Activity{
                 AppConfig.URL_REGISTER, new Response.Listener<String>(){
            public void onResponse(String response){
                // ngecek response
-               Log.d(TAG,"Register Response"+ response.toString());
+               Log.d(TAG,"Register Response: "+ response.toString());
                hideDialog(); // buat ngumpetin dialog
                // pARSING KE JSON
                try{
@@ -114,16 +117,60 @@ public class RegisterActivity extends Activity{
 
                        // masukin data user kedalam tabel
                        db.addUser(username,email,password,repass,no_hp,uid,created_at);
-                       Toast
+                       Toast.makeText(getApplicationContext(), "User berhasil registrasi");
 
+                       // launch login activity
+                       Intent intent = new Intent(
+                               RegisterActivity.this, LoginActivity.class);
+                       startActivity(intent);
+                       finish();
                    }
+                   else {
+                       // jika eror setelah registrasi
+                       String errorMsg = jObj.getString("Registrasi Gagal");
+                       Toast.makeText(getApplicationContext(),
+                               errorMsg, Toast.LENGTH_LONG).show();
+                   }
+               } catch (JSONException e) {
+                   e.printStackTrace();
                }
            }
-        });
+        }, new Response.ErrorListener() {
 
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Registrasi Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("email", email);
+                params.put("password", password);
+                params.put("repass", repass);
+                params.put("no_hp", no_hp);
+
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
 
-    private class SessionManager {
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 }
