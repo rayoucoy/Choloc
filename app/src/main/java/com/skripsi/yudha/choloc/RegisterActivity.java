@@ -150,8 +150,8 @@ public class RegisterActivity extends AppCompatActivity {
             else if(result.equalsIgnoreCase("email registered"))
             {
                 Toast.makeText(RegisterActivity.this, "Pendaftaran Gagal! Email Anda telah terdaftar!", Toast.LENGTH_LONG).show();
-
-            } else {
+            }
+            else {
                 //SUKSES
                 Toast.makeText(RegisterActivity.this, "Pendaftaran berhasil! Silahkan cek email untuk verifikasi!", Toast.LENGTH_LONG).show();
 
