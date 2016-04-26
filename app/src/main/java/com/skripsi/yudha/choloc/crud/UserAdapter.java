@@ -41,15 +41,15 @@ public class UserAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (convertView == null)
-            vi = inflater.inflate(R.layout.list_item_user, null);
-        TextView id_user = (TextView) vi.findViewById(R.id.id_user);
+            vi = inflater.inflate(R.layout.abc_popup_menu_item_layout, null);
+        TextView id_user = (TextView) vi.findViewById(R.id.username);
         TextView username = (TextView) vi.findViewById(R.id.username);
         TextView password = (TextView) vi.findViewById(R.id.password);
         TextView no_hp = (TextView) vi.findViewById(R.id.no_hp);
         TextView email = (TextView) vi.findViewById(R.id.email);
 
         User daftar_mhs = data_user.get(position);
-        id_user.setText(daftar_mhs.getUserId());
+        id_user.setText(daftar_mhs.getEmail());
         username.setText(daftar_mhs.getUserame());
         password.setText(daftar_mhs.getPassword());
         no_hp.setText(daftar_mhs.getNoHp());

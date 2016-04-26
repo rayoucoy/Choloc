@@ -7,7 +7,7 @@ import android.text.TextUtils;
  * Created by yudha on 26/04/2016.
  */
 public class AppController extends Application {
-
+/*
     public static final String TAG = AppController.class.getSimpleName();
 
     private RequestQueue mRequestQueue;
@@ -47,4 +47,6 @@ public class AppController extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
+
+    */
 }
