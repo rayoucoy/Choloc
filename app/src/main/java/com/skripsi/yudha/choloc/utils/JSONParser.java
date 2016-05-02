@@ -23,13 +23,7 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
-
-import com.skripsi.yudha.choloc.R;
 
 //I used a JSON Parser class to get JSON from URL. This class supports two http request methods GET and POST to get json from url.
 

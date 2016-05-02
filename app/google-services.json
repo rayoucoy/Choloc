@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "54700750112",
+    "project_id": "choloc-1295"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54700750112:android:22e5dc123f3087dd",
+        "android_client_info": {
+          "package_name": "com.skripsi.yudha.choloc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnmB1KF2lhClJ05e_S3nrwdH6SazbssMQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

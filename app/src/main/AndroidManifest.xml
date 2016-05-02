@@ -49,10 +49,7 @@
         <activity
             android:name=".NewPasswordActivity"
             android:label="@string/title_activity_new_password" />
-        <activity
-            android:name=".ChatListActivity"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

@@ -30,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText eRePassword;
     private EditText eMobilePhone;
     private ProgressDialog pDialog;
-    private SessionManagement session;
     private CheckBox cCheck;
     private Button bSignUp;
     private Button bCancel;

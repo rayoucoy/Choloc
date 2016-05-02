@@ -31,9 +31,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+    // The {@link ViewPager} that will host the section contents.
     private ViewPager mViewPager;
 
     // Disable back button
@@ -211,26 +209,7 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 6 total pages.
             return 4;
         }
-
-        /*
-        @Override
-        public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.title_section1);
-                case 1:
-                    return getString(R.string.title_section2);
-                case 2:
-                    return getString(R.string.title_section3);
-                case 3:
-                    return getString(R.string.title_section4);
-            }
-            return null;
-        }
-        */
     }
 }
