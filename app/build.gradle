@@ -2,13 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 22
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "com.skripsi.yudha.choloc"
-        minSdkVersion 19
-        targetSdkVersion 19
+        minSdkVersion 15
+        targetSdkVersion 17
         versionCode 1
         versionName "1.0"
     }
@@ -17,6 +16,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 
