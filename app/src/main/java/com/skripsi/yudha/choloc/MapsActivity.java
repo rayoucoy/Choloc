@@ -50,7 +50,7 @@ public class MapsActivity extends AppCompatActivity {
         // Zoom in, animating the camera.
         map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
     }
-
+//        Testing init for manage function in method
 
     private void initEvent() {
         ImageButton imageButtonChatList = (ImageButton)findViewById(R.id.chatlist_button);
