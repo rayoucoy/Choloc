@@ -10,13 +10,49 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 public class MapsActivity extends AppCompatActivity {
+    static final LatLng SEMARANG = new LatLng(-7.049645, 110.438541);
+    static final LatLng BREBES = new LatLng(-6.841648,109.044968);
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
 
+        initEvent();
+        initMap();
+
+    }
+
+    private void initMap() {
+
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+                .getMap();
+        Marker Semarang = map.addMarker(new MarkerOptions().position(SEMARANG)
+                .title("Hamburg"));
+        Marker Brebes = map.addMarker(new MarkerOptions()
+                .position(BREBES)
+                .title("Brebes")
+                .snippet("Brebes is cool Man")
+                .icon(BitmapDescriptorFactory
+                        .fromResource(R.drawable.maps)));
+        // Move the camera instantly to hamburg with a zoom of 15.
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(SEMARANG, 15));
+
+        // Zoom in, animating the camera.
+        map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+    }
+
+
+    private void initEvent() {
         ImageButton imageButtonChatList = (ImageButton)findViewById(R.id.chatlist_button);
         imageButtonChatList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +82,6 @@ public class MapsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 
 }
