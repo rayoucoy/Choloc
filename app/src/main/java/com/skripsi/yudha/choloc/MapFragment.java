@@ -57,7 +57,7 @@ public class MapFragment extends Fragment {
 
     }
 
-    public void onResme(){
+    public void onResume(){
         super.onResume();
         mMapView.onResume();
     }
@@ -67,7 +67,7 @@ public class MapFragment extends Fragment {
         mMapView.onPause();
     }
 
-    public void onDestry(){
+    public void onDestroy(){
         super.onDestroy();
         mMapView.onDestroy();
     }
