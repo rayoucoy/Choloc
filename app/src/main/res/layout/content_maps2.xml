@@ -39,37 +39,20 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Maps"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-        </ListView>
-
-    </ScrollView>
     <!-- Show on Map button -->
-    <Button android:id="@+id/btn_show_map"
+    <Button
+        android:id="@+id/ceklokasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cek lokasi anda sekarang" />
+
+    <Button
+        android:id="@+id/cekdekat"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Show Places on Map"
+        android:text="Lokasi wisata terdekat"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dip"/>
-
-    <!--  List view -->
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_show_map"/>
-
 
     <fragment
         android:id="@+id/map"
