@@ -51,8 +51,8 @@ public class HomeActivity extends AppCompatActivity {
         // Session class instance
         session = new SessionManagement(getApplicationContext());
         /**
-         * Call this function whenever you want to check user login
-         * This will redirect user to LoginActivity is he is not
+         * This will redirect user to LoginActivity is he is n
+         * Call this function whenever you want to check user loginot
          * logged in
          * */
         session.checkLogin();

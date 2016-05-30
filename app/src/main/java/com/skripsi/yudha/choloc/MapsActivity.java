@@ -1,6 +1,5 @@
 package com.skripsi.yudha.choloc;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.internal.widget.AdapterViewCompat;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -20,14 +18,11 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.skripsi.yudha.choloc.Tracker.GPSTracker;
-import com.skripsi.yudha.choloc.Tracker.GooglePlaces;
 import com.skripsi.yudha.choloc.Tracker.Place;
 import com.skripsi.yudha.choloc.Tracker.PlacesList;
 import com.skripsi.yudha.choloc.helper.AlertDialogManager;
@@ -53,7 +48,7 @@ public class MapsActivity extends AppCompatActivity {
     AlertDialogManager alert = new AlertDialogManager();
 
     // Google Places
-    GooglePlaces googlePlaces;
+    //GooglePlaces googlePlaces;
 
     // Places List
     PlacesList nearPlaces;
@@ -145,7 +140,7 @@ public class MapsActivity extends AppCompatActivity {
          * On selecting a listitem SinglePlaceActivity is launched
          * */
 
-        lv.setOnItemClickListener(new AdapterViewCompat.OnItemClickListener() {
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -190,7 +185,7 @@ public class MapsActivity extends AppCompatActivity {
 
         protected String doInBackground(String... args) {
             // creating Places class object
-            googlePlaces = new GooglePlaces();
+            //googlePlaces = new GooglePlaces();
 
             try {
                 // Separeate your place types by PIPE symbol "|"
@@ -203,8 +198,8 @@ public class MapsActivity extends AppCompatActivity {
                 double radius = 1000; // 1000 meters
 
                 // get nearest places
-                nearPlaces = googlePlaces.search(gps.getLatitude(),
-                        gps.getLongitude(), radius, types);
+                //nearPlaces = googlePlaces.search(gps.getLatitude(),
+                //        gps.getLongitude(), radius, types);
 
 
             } catch (Exception e) {
@@ -309,8 +304,6 @@ public class MapsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
-    }
-
     }
 
     private void addMapFragment() {
