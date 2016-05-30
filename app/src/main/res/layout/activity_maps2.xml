@@ -5,6 +5,6 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/content_maps2" />
+    <include layout="@layout/fragment_map" />
 
     </LinearLayout>
