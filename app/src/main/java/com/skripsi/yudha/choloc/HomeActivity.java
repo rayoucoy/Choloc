@@ -200,7 +200,7 @@ public class HomeActivity extends AppCompatActivity {
             switch (position){
                 case 0 :return PlaceholderFragment.newInstance(position + 1);
                 case 1 :return PlaceholderFragment.newInstance(position + 1);
-                case 2 :return PlaceholderFragment.newInstance(MapsActivity2);
+            //    case 2 :return PlaceholderFragment.newInstance(MapsActivity2);
                 case 3 :return PlaceholderFragment.newInstance(position + 1);
                 case 4 :return PlaceholderFragment.newInstance(position);
             }

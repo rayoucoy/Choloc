@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class FriendListActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity {
 
     // Session Management Class
     SessionManagement session;
@@ -23,7 +23,7 @@ public class FriendListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friendlist);
+        setContentView(R.layout.activity_maps);
 
         // Session class instance
         session = new SessionManagement(getApplicationContext());
@@ -39,17 +39,17 @@ public class FriendListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i;
-                i = new Intent(FriendListActivity.this,ChatListActivity.class);
+                i = new Intent(MapActivity.this,ChatListActivity.class);
                 startActivity(i);
             }
         });
 
-        ImageButton imageButtonMaps = (ImageButton)findViewById(R.id.maps_button);
-        imageButtonMaps.setOnClickListener(new View.OnClickListener() {
+        ImageButton imageButtonFriendList = (ImageButton)findViewById(R.id.friendlist_button);
+        imageButtonFriendList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;
-                i = new Intent(FriendListActivity.this, MapActivity.class);
+                i = new Intent(MapActivity.this, FriendListActivity.class);
                 startActivity(i);
             }
         });

@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * Created by yudha on 03/05/2016.
  */
-public class GcmIntentService extends IntentService {
+/*public class GcmIntentService extends IntentService {
 
     private static final String TAG = GcmIntentService.class.getSimpleName();
 
@@ -52,11 +52,11 @@ public class GcmIntentService extends IntentService {
         }
 
     }
-
+*/
     /**
      * Registering with GCM and obtaining the gcm registration id
      */
-    private void registerGCM() {
+/*    private void registerGCM() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String token = null;
 
@@ -87,11 +87,11 @@ public class GcmIntentService extends IntentService {
         // to keep it in MySQL
 
     }
-
+*/
     /**
      * Subscribe to a topic
      */
-    public void subscribeToTopic(String topic) {
+/*    public void subscribeToTopic(String topic) {
         GcmPubSub pubSub = GcmPubSub.getInstance(getApplicationContext());
         InstanceID instanceID = InstanceID.getInstance(getApplicationContext());
         String token = null;
@@ -109,8 +109,8 @@ public class GcmIntentService extends IntentService {
             Toast.makeText(getApplicationContext(), "Topic subscribe error. Topic: " + topic + ", error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-
-    public void unsubscribeFromTopic(String topic) {
+*/
+/*    public void unsubscribeFromTopic(String topic) {
         GcmPubSub pubSub = GcmPubSub.getInstance(getApplicationContext());
         InstanceID instanceID = InstanceID.getInstance(getApplicationContext());
         String token = null;
@@ -129,3 +129,4 @@ public class GcmIntentService extends IntentService {
         }
     }
 }
+*/

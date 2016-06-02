@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MapsActivity"
+    tools:context=".MapActivity"
     tools:showIn="@layout/activity_maps"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
+        android:background="@android:color/holo_blue_dark"
         android:orientation="horizontal"
         android:gravity="center">
 
@@ -31,11 +31,6 @@
             android:id="@+id/maps_button"
             android:scaleType="centerCrop"
             android:src="@drawable/maps"/>
-        <ImageButton
-            style="@style/ButtonMenu"
-            android:id="@+id/profile_button"
-            android:scaleType="centerCrop"
-            android:src="@drawable/profile"/>
 
     </LinearLayout>
 
@@ -55,26 +50,5 @@
         </ListView>
 
     </ScrollView>
-    <!-- Show on Map button -->
-    <Button android:id="@+id/btn_show_map"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Show Places on Map"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dip"/>
-
-    <!--  List view -->
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_show_map"/>
-
-
-    <fragment
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class = "com.google.android.gms.maps.MapFragment"/>
 
 </LinearLayout>

@@ -7,13 +7,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ChatListActivity"
     tools:showIn="@layout/activity_chatlist"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
+        android:background="@android:color/holo_blue_dark"
         android:orientation="horizontal"
         android:gravity="center">
 
@@ -32,18 +31,13 @@
             android:id="@+id/maps_button"
             android:scaleType="centerCrop"
             android:src="@drawable/maps"/>
-        <ImageButton
-            style="@style/ButtonMenu"
-            android:id="@+id/profile_button"
-            android:scaleType="centerCrop"
-            android:src="@drawable/profile"/>
 
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chhatlist"/>
+        android:text="ChatList"/>
 
     <ScrollView
         android:layout_width="match_parent"

@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Created by yudha on 03/05/2016.
  */
-public class NotificationUtils {
+/*public class NotificationUtils {
 
     private static String TAG = NotificationUtils.class.getSimpleName();
 
@@ -155,12 +155,12 @@ public class NotificationUtils {
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
     }
-
+*/
     /**
      * Downloading push notification image before displaying it in
      * the notification tray
      */
-    public Bitmap getBitmapFromURL(String strURL) {
+/*    public Bitmap getBitmapFromURL(String strURL) {
         try {
             URL url = new URL(strURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -186,11 +186,11 @@ public class NotificationUtils {
             e.printStackTrace();
         }
     }
-
+*/
     /**
      * Method checks if the app is in background or not
      */
-    public static boolean isAppIsInBackground(Context context) {
+/*    public static boolean isAppIsInBackground(Context context) {
         boolean isInBackground = true;
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
@@ -220,8 +220,8 @@ public class NotificationUtils {
         NotificationManager notificationManager = (NotificationManager) MyApplication.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }
-
-    public static long getTimeMilliSec(String timeStamp) {
+*/
+/*    public static long getTimeMilliSec(String timeStamp) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date date = format.parse(timeStamp);
@@ -231,4 +231,4 @@ public class NotificationUtils {
         }
         return 0;
     }
-}
+}*/

@@ -14,12 +14,12 @@ import com.skripsi.yudha.choloc.app.Config;
 /**
  * Created by yudha on 03/05/2016.
  */
-public class MyGcmPushReceiver extends GcmListenerService {
+/*public class MyGcmPushReceiver extends GcmListenerService {
 
     private static final String TAG = MyGcmPushReceiver.class.getSimpleName();
 
     private NotificationUtils notificationUtils;
-
+*/
     /**
      * Called when message is received.
      *
@@ -27,7 +27,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
      * @param bundle Data bundle containing message data as key/value pairs.
      *               For Set of keys use data.keySet().
      */
-
+/*
     @Override
     public void onMessageReceived(String from, Bundle bundle) {
         String title = bundle.getString("title");
@@ -62,22 +62,22 @@ public class MyGcmPushReceiver extends GcmListenerService {
             }
         }
     }
-
+*/
     /**
      * Showing notification with text only
      */
-    private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent) {
+/*    private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         notificationUtils.showNotificationMessage(title, message, timeStamp, intent);
     }
-
+*/
     /**
      * Showing notification with text and image
      */
-    private void showNotificationMessageWithBigImage(Context context, String title, String message, String timeStamp, Intent intent, String imageUrl) {
+/*    private void showNotificationMessageWithBigImage(Context context, String title, String message, String timeStamp, Intent intent, String imageUrl) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         notificationUtils.showNotificationMessage(title, message, timeStamp, intent, imageUrl);
     }
-}
+}*/

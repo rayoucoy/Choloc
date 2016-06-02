@@ -31,7 +31,7 @@ import com.skripsi.yudha.choloc.helper.ConnectionDetector;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MapsActivity extends AppCompatActivity {
+/*public class MapsActivity extends AppCompatActivity {
     static final LatLng SEMARANG = new LatLng(-7.049645, 110.438541);
     static final LatLng BREBES = new LatLng(-6.841648,109.044968);
 //    private GoogleMap map;
@@ -115,9 +115,9 @@ public class MapsActivity extends AppCompatActivity {
         // calling background Async task to load Google Places
         // After getting places from Google all the data is shown in listview
         new LoadPlaces().execute();
-
+*/
         /** Button click event for shown on map */
-        btnShowOnMap.setOnClickListener(new View.OnClickListener() {
+/*        btnShowOnMap.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
@@ -134,13 +134,13 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
 
-
+*/
         /**
          * ListItem click event
          * On selecting a listitem SinglePlaceActivity is launched
          * */
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+/*        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -159,17 +159,17 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
     }
-
+*/
     /**
      * Background Async Task to Load Google places
      * */
 
-    class LoadPlaces extends AsyncTask<String, String, String> {
+//    class LoadPlaces extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog
          * */
-        @Override
+/*        @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(MapsActivity.this);
@@ -178,11 +178,11 @@ public class MapsActivity extends AppCompatActivity {
             pDialog.setCancelable(false);
             pDialog.show();
         }
-
+*/
         /**
          * getting Places JSON
          * */
-
+/*
         protected String doInBackground(String... args) {
             // creating Places class object
             //googlePlaces = new GooglePlaces();
@@ -207,25 +207,25 @@ public class MapsActivity extends AppCompatActivity {
             }
             return null;
         }
-
+*/
         /**
          * After completing background task Dismiss the progress dialog
          * and show the data in UI
          * Always use runOnUiThread(new Runnable()) to update UI from background
          * thread, otherwise you will get error
          * **/
-
+/*
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
-                    /**
+*/                    /**
                      * Updating parsed Places into LISTVIEW
                      * */
                     // Get json response status
-                    String status = nearPlaces.status;
+/*                  String status = nearPlaces.status;
 
                     // Check for all possible status
                     if(status.equals("OK")){
@@ -313,7 +313,7 @@ public class MapsActivity extends AppCompatActivity {
 //        transaction.add(R.id.mapView, fragment);
         transaction.commit();
     }
-    /*private void initEvent() {
+*/   /* private void initEvent() {
         ImageButton imageButtonChatList = (ImageButton)findViewById(R.id.chatlist_button);
         imageButtonChatList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -343,9 +343,6 @@ public class MapsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    } */
-
+    }
 }
-
-
-
+*/

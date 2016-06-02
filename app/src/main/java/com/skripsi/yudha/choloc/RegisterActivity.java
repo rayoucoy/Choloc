@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,7 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText eRePassword;
     private EditText eMobilePhone;
     private ProgressDialog pDialog;
-    private CheckBox cCheck;
     private Button bSignUp;
     private Button bCancel;
 
@@ -47,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
         ePassword = (EditText) findViewById(R.id.password);
         eRePassword = (EditText) findViewById(R.id.repass);
         eMobilePhone = (EditText) findViewById(R.id.no_hp);
-        cCheck      = (CheckBox) findViewById(R.id.checkCreate);
         bSignUp     = (Button) findViewById(R.id.signup_button);
         bCancel     = (Button) findViewById(R.id.cancel_button);
 

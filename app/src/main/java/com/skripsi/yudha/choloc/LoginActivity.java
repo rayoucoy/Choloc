@@ -4,9 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -26,7 +23,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -449,7 +445,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         session.createLoginSession(id_user, username, email);
 
                         Intent i = null;
-                        i = new Intent(LoginActivity.this, HomeActivity.class);
+                        i = new Intent(LoginActivity.this, ChatListActivity.class);
                         startActivity(i);
                         finish();
 

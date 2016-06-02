@@ -25,7 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 /**
  * Created by yudha on 29/05/16.
  */
-public class MapsActivity2 extends ActionBarActivity, Fragment implements LocationListener {
+/*public class MapsActivity2 extends ActionBarActivity, Fragment implements LocationListener {
     Button ceklokasi, cekdekat;
     public String kode = "kode", KEY1 = "key1", KEY2 = "key2", KEY3 = "key3", KEY4 = "key4", LAT1 = "1", LAT2 = "2", LAT3 = "3", LAT4 = "4", LONG1 = "11", LONG2 = "22", LONG3 = "33", LONG4 = "44", CURLAT = "111", CURLONG = "222";
     public static String satu, dua, tiga, empat, lat1, lat2, lat3, lat4, long1, long2, long3, long4;
@@ -35,11 +35,12 @@ public class MapsActivity2 extends ActionBarActivity, Fragment implements Locati
     String provider;
     public static String curlat = "-6.973981", curlong = "107.6293685";
     protected boolean gps_enabled, network_enabled;
+    */
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
+/*    private GoogleApiClient client;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -157,3 +158,4 @@ public class MapsActivity2 extends ActionBarActivity, Fragment implements Locati
         client.disconnect();
     }
 }
+*/

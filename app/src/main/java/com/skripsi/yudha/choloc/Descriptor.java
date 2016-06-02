@@ -38,7 +38,7 @@ public class Descriptor extends AppCompatActivity {
         }else if (a.equalsIgnoreCase("4")) {
             img.setImageResource(R.drawable.situ_patenggang);
             title.setText("Situ Patenggang / Situ Patengan");
-            desc.setText(R.string.desc_situpatengan);
+            desc.setText(R.string.desc_situpatenggang);
         }
     }
 
