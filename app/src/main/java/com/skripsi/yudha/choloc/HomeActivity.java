@@ -1,215 +1,115 @@
 package com.skripsi.yudha.choloc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class HomeActivity extends AppCompatActivity {
-
+public class HomeActivity extends ActionBarActivity implements LocationListener {
     // Session Management Class
     SessionManagement session;
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    Button ceklokasi, cekdekat;
+    public String kode="kode", KEY1 = "key1", KEY2 = "key2", KEY3 = "key3", KEY4 = "key4", LAT1 = "1", LAT2 = "2", LAT3 = "3", LAT4 = "4", LONG1 = "11", LONG2 = "22", LONG3 = "33", LONG4 = "44", CURLAT = "111", CURLONG = "222";
+    public static String satu, dua, tiga, empat, lat1, lat2, lat3, lat4, long1, long2, long3, long4;
+    protected LocationManager locationManager;
+    protected LocationListener locationListener;
+    protected Context context;
+    String provider;
+    public static String curlat = "-6.973981", curlong = "107.6293685";
+    protected boolean gps_enabled, network_enabled;
 
-    // The {@link ViewPager} that will host the section contents.
-    private ViewPager mViewPager;
-
-    // Disable back button
     @Override
-    public void onBackPressed() {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(startMain);
+    public void onLocationChanged(Location location) {
+        // TODO Auto-generated method stub
+        curlat = String.valueOf(location.getLatitude());
+        curlong = String.valueOf(location.getLongitude());
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         // Session class instance
         session = new SessionManagement(getApplicationContext());
-        /**
-         * This will redirect user to LoginActivity is he is n
-         * Call this function whenever you want to check user loginot
-         * logged in
-         * */
         session.checkLogin();
 
-        final ActionBar actionBar = getSupportActionBar();
-        //actionBar.setSubtitle("Langkah 1");
-        // Specify that tabs should be displayed in the action bar.
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        //actionBar.setTitle(mSectionsPagerAdapter.getPageTitle(0));
+        ceklokasi = (Button) findViewById(R.id.ceklokasi);
+        cekdekat = (Button) findViewById(R.id.cekdekat);
 
-        // Create a tab listener that is called when the user changes tabs.
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // show the given tab
-                mViewPager = (ViewPager) findViewById(R.id.container);
-                mViewPager.setCurrentItem(tab.getPosition());
+        ceklokasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCurrentLocation();
             }
+        });
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // hide the given tab
+        cekdekat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getApplicationContext(), MapsActivity2.class);
+                in.putExtra(kode, "ALL");
+                in.putExtra(CURLAT, curlat);
+                in.putExtra(CURLONG, curlong);
+                startActivity(in);
             }
+        });
+    }
 
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // probably ignore this event
-            }
-        };
-
-        // Add 4 tabs, specifying the tab's text and TabListener
-
-        for (int i = 0; i < 4; i++) {
-            if (i==0){
-                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.chat_image).setTabListener(tabListener));
-            }
-            else if (i==1){
-                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.friendlist_image).setTabListener(tabListener));
-            }
-            else if (i==2){
-                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.maps_image).setTabListener(tabListener));
-            }
-            else if (i==3){
-                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.profile_image).setTabListener(tabListener));
-            }
-            else if (i==4){
-                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.profile_image).setTabListener(tabListener));
-            }
-            else {
-                actionBar.addTab(actionBar.newTab().setIcon(R.mipmap.chat_image).setTabListener(tabListener));
-            }
+    private void showCurrentLocation() {
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location != null) {
+            String message = String.format(
+                    "Current Location \n Longitude: %1$s \n Latitude: %2$s",
+                    location.getLongitude(), location.getLatitude());
+            curlat=String.valueOf(location.getLatitude());
+            curlong=String.valueOf(location.getLongitude());
+            Toast.makeText(HomeActivity.this, message, Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(HomeActivity.this, "Lokasi tidak terdeteksi", Toast.LENGTH_LONG).show();
         }
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOnPageChangeListener(
-                new ViewPager.SimpleOnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        // When swiping between pages, select the
-                        // corresponding tab.
-                        getSupportActionBar().setSelectedNavigationItem(position);
-                        getSupportActionBar().setDisplayShowHomeEnabled(true);
-                        getSupportActionBar().setSubtitle(mSectionsPagerAdapter.getPageTitle(position));
-                    }
-                });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // TODO Auto-generated method stub
 
+    }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onProviderEnabled(String provider) {
+        // TODO Auto-generated method stub
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }else if(id == R.id.action_logout){
-            session.logoutUser();
-            return true;
-        }
+    }
+    @Override
+    public void onProviderDisabled(String provider) {
+        // TODO Auto-generated method stub
 
-        return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
-        }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            switch (position){
-                case 0 :return PlaceholderFragment.newInstance(position + 1);
-                case 1 :return PlaceholderFragment.newInstance(position + 1);
-            //    case 2 :return PlaceholderFragment.newInstance(MapsActivity2);
-                case 3 :return PlaceholderFragment.newInstance(position + 1);
-                case 4 :return PlaceholderFragment.newInstance(position);
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return 4;
-        }
-    }
 }

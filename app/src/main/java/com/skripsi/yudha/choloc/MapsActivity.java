@@ -1,348 +1,266 @@
 package com.skripsi.yudha.choloc;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.skripsi.yudha.choloc.Tracker.GPSTracker;
-import com.skripsi.yudha.choloc.Tracker.Place;
-import com.skripsi.yudha.choloc.Tracker.PlacesList;
-import com.skripsi.yudha.choloc.helper.AlertDialogManager;
-import com.skripsi.yudha.choloc.helper.ConnectionDetector;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-/*public class MapsActivity extends AppCompatActivity {
-    static final LatLng SEMARANG = new LatLng(-7.049645, 110.438541);
-    static final LatLng BREBES = new LatLng(-6.841648,109.044968);
-//    private GoogleMap map;
-    MapView mMapView;
-    private GoogleMap googleMap;
+/**
+ * Created by affan on 03/06/16.
+ */
+public class MapsActivity extends FragmentActivity {
 
-    // flag for Internet connection status
-    Boolean isInternetPresent = false;
-
-    // Connection detector class
-    ConnectionDetector cd;
-
-    // Alert Dialog Manager
-    AlertDialogManager alert = new AlertDialogManager();
-
-    // Google Places
-    //GooglePlaces googlePlaces;
-
-    // Places List
-    PlacesList nearPlaces;
-
-    // GPS Location
-    GPSTracker gps;
-
-    // Button
-    Button btnShowOnMap;
-
-    // Progress dialog
-    ProgressDialog pDialog;
-
-    // Places Listview
-    ListView lv;
-
-    // ListItems data
-    ArrayList<HashMap<String, String>> placesListItems = new ArrayList<HashMap<String,String>>();
-
-    // KEY Strings
-    public static String KEY_REFERENCE = "reference"; // id of the place
-    public static String KEY_NAME = "name"; // name of the place
-    public static String KEY_VICINITY = "vicinity"; // Place area name
+    private static LatLng LAT1= new LatLng(-7.1661110,107.4022220);
+    private static LatLng LAT2= new LatLng(-7.1669440,107.3580560);
+    private static LatLng LAT3= new LatLng(-6.9259410,107.6361910);
+    private static LatLng LAT4= new LatLng(-6.8999250,107.6229660);
+    private static LatLng CURRENT= new LatLng(-6.973981, 107.6293685);
+    public static String KEY1="key1",KEY2="key2",KEY3="key3",KEY4="key4",lat1="1", lat2="2",lat3="3",lat4="4",long1="11",long2="22",long3="33",long4="44",CURLAT="111",CURLONG="222";
+    public static String latsek,longsek,lokasi1,lokasi2,lokasi3,lokasi4,lati1,lati2,lati3,lati4,longi1,longi2,longi3,longi4;
+    GoogleMap googleMap;
+    final String TAG = "PathGoogleMapActivity";
+    SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        initEvent();
-//        initMap();
-        addMapFragment();
-        cd = new ConnectionDetector(getApplicationContext());
-
-        // Check if Internet present
-        isInternetPresent = cd.isConnectingToInternet();
-        if (!isInternetPresent) {
-            // Internet Connection is not present
-            alert.showAlertDialog(MapsActivity.this, "Internet Connection Error",
-                    "Please connect to working Internet connection", false);
-            // stop executing code by return
-            return;
-        }
-
-        // creating GPS Class object
-        gps = new GPSTracker(this);
-
-        // check if GPS location can get
-        if (gps.canGetLocation()) {
-            Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
-        } else {
-            // Can't get user's current location
-            alert.showAlertDialog(MapsActivity.this, "GPS Status",
-                    "Couldn't get location information. Please enable GPS",
-                    false);
-            // stop executing code by return
-            return;
-        }
-
-        // Getting listview
-        lv = (ListView) findViewById(R.id.list);
-
-        // button show on map
-        btnShowOnMap = (Button) findViewById(R.id.btn_show_map);
-
-        // calling background Async task to load Google Places
-        // After getting places from Google all the data is shown in listview
-        new LoadPlaces().execute();
-*/
-        /** Button click event for shown on map */
-/*        btnShowOnMap.setOnClickListener(new View.OnClickListener() {
-
+        setContentView(R.layout.maplayout);
+        session = new SessionManagement(getApplicationContext());
+        session.checkLogin();
+        SupportMapFragment fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
+        Intent i=getIntent();
+        lokasi1=i.getStringExtra(KEY1);
+        lokasi2=i.getStringExtra(KEY2);
+        lokasi3=i.getStringExtra(KEY3);
+        lokasi4=i.getStringExtra(KEY4);
+        lati1=i.getStringExtra(lat1);longi1=i.getStringExtra(long1);
+        lati2=i.getStringExtra(lat2);longi2=i.getStringExtra(long2);
+        lati3=i.getStringExtra(lat3);longi3=i.getStringExtra(long3);
+        lati4=i.getStringExtra(lat4);longi4=i.getStringExtra(long4);
+        latsek=i.getStringExtra(CURLAT);longsek=i.getStringExtra(CURLONG);
+        LAT1= new LatLng((Double.parseDouble(lati1)), (Double.parseDouble(longi1)));
+        LAT2=new LatLng((Double.parseDouble(lati2)),(Double.parseDouble(longi2)));
+        LAT3=new LatLng((Double.parseDouble(lati3)),(Double.parseDouble(longi3)));
+        LAT4=new LatLng((Double.parseDouble(lati4)),(Double.parseDouble(longi4)));
+        CURRENT=new LatLng((Double.parseDouble(latsek)),(Double.parseDouble(longsek)));
+        googleMap = fm.getMap();
+        MarkerOptions options = new MarkerOptions();
+        options.position(CURRENT);
+        options.position(LAT1);
+        options.position(LAT2);
+        options.position(LAT3);
+        options.position(LAT4);
+        googleMap.addMarker(options);
+        String url = getMapsApiDirectionsUrl();
+        ReadTask downloadTask = new ReadTask();
+        downloadTask.execute(url);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CURRENT, 13));
+        addMarkers();
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
-            public void onClick(View arg0) {
-                Intent i = new Intent(getApplicationContext(),
-                        PlacesMapActivity.class);
-                // Sending user current geo location
-                i.putExtra("user_latitude", Double.toString(gps.getLatitude()));
-                i.putExtra("user_longitude", Double.toString(gps.getLongitude()));
+            public void onInfoWindowClick(Marker marker) {
+                Intent i=new Intent(getApplicationContext(), Descriptor.class);
+                if (marker.getTitle().equalsIgnoreCase("kawah putih"))
+                {
+                    //handle click here
+                    i.putExtra("value","1");
+                    startActivity(i);
+                }else if (marker.getTitle().equalsIgnoreCase("trans studio bandung"))
+                {
+                    //handle click here
+                    i.putExtra("value","2");
+                    startActivity(i);
+                }else if (marker.getTitle().equalsIgnoreCase("gedung sate"))
+                {
+                    //handle click here
+                    i.putExtra("value","3");
+                    startActivity(i);
+                }else if (marker.getTitle().equalsIgnoreCase("situ patengan"))
+                {
+                    i.putExtra("value","4");
+                    startActivity(i);
+                    //handle click here
+                }else if (marker.getTitle().equalsIgnoreCase("Taman Ade Irma Suryani"))
+                {
+                    //handle click here
+                    i.putExtra("value","5");
+                    startActivity(i);
 
-                // passing near places to map activity
-                i.putExtra("near_places", nearPlaces);
-                // staring activity
-                startActivity(i);
+                }else if (marker.getTitle().equalsIgnoreCase("Keraton Kasepuhan"))
+                {
+                    i.putExtra("value","6");
+                    startActivity(i);
+
+                    //handle click here
+                }else if (marker.getTitle().equalsIgnoreCase("banyu panas palimanan"))
+                {
+                    //handle click here
+                    i.putExtra("value","7");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("pantai kejawanan"))
+                {
+                    //handle click here
+                    i.putExtra("value","8");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("goa bumiayu"))
+                {
+                    //handle click here
+                    i.putExtra("value","9");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("situ gunung"))
+                {
+                    //handle click here
+                    i.putExtra("value","10");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("situ sukarame"))
+                {
+                    //handle click here
+                    i.putExtra("value","11");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("taman rekreasi selabintana"))
+                {
+                    //handle click here
+                    i.putExtra("value","12");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Kebun Raya Bogor"))
+                {
+                    //handle click here
+                    i.putExtra("value","13");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Danau Situ Gede"))
+                {
+                    //handle click here
+                    i.putExtra("value","14");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Taman Safari Bogor"))
+                {
+                    //handle click here
+                    i.putExtra("value","15");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Taman Wisata Mekarsari"))
+                {
+                    //handle click here
+                    i.putExtra("value","16");
+                    startActivity(i);
+
+                }
             }
         });
 
-*/
-        /**
-         * ListItem click event
-         * On selecting a listitem SinglePlaceActivity is launched
-         * */
-
-/*        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // getting values from selected ListItem
-                String reference = ((TextView) view.findViewById(R.id.reference)).getText().toString();
-
-                // Starting new intent
-                Intent in = new Intent(getApplicationContext(),
-                        SinglePlaceActivity.class);
-
-                // Sending place refrence id to single place activity
-                // place refrence id used to get "Place full details"
-                in.putExtra(KEY_REFERENCE, reference);
-                startActivity(in);
-            }
-        });
     }
-*/
-    /**
-     * Background Async Task to Load Google places
-     * */
 
-//    class LoadPlaces extends AsyncTask<String, String, String> {
+    private String getMapsApiDirectionsUrl() {
+        //String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+latsek+","+longsek+"&destination="+lati4+","+longi4+"&waypoints=optimize:true|"+lati1+","+longi1+"|"+lati2+","+longi2+"|"+lati3+","+longi3+"|"+lati4+","+longi4+"&sensor=false&key=AIzaSyBw7PQkQlqYryvdFF1PaTP6POI9QX2kB8Q";
+        String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+latsek+","+longsek+"&destination="+lati2+","+longi2+"&waypoints=optimize:true|" + lati4 + "," + longi4 + "|" + lati3 + "," + longi3 + "|" + lati1 + "," + longi1 + "&sensor=false&key=AIzaSyBw7PQkQlqYryvdFF1PaTP6POI9QX2kB8Q";
+        Log.e(TAG, url);
+        return url;
+    }
 
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-/*        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(MapsActivity.this);
-            pDialog.setMessage(Html.fromHtml("<b>Search</b><br/>Loading Places..."));
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
+    private void addMarkers() {
+        if (googleMap != null) {
+            googleMap.addMarker(new MarkerOptions().position(CURRENT)
+                    .title("Current Location")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            googleMap.addMarker(new MarkerOptions().position(LAT1)
+                    .title(lokasi1));
+            googleMap.addMarker(new MarkerOptions().position(LAT2)
+                    .title(lokasi2));
+            googleMap.addMarker(new MarkerOptions().position(LAT3)
+                    .title(lokasi3));
+            googleMap.addMarker(new MarkerOptions().position(LAT4)
+                    .title(lokasi4));
         }
-*/
-        /**
-         * getting Places JSON
-         * */
-/*
-        protected String doInBackground(String... args) {
-            // creating Places class object
-            //googlePlaces = new GooglePlaces();
+    }
 
+
+
+    private class ReadTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... url) {
+            String data = "";
             try {
-                // Separeate your place types by PIPE symbol "|"
-                // If you want all types places make it as null
-                // Check list of types supported by google
-                //
-                String types = "cafe|restaurant"; // Listing places only cafes, restaurants
+                HttpConnection http = new HttpConnection();
+                data = http.readUrl(url[0]);
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+            }
+            return data;
+        }
 
-                // Radius in meters - increase this value if you don't find any places
-                double radius = 1000; // 1000 meters
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            new ParserTask().execute(result);
+        }
+    }
 
-                // get nearest places
-                //nearPlaces = googlePlaces.search(gps.getLatitude(),
-                //        gps.getLongitude(), radius, types);
-
-
+    private class ParserTask extends
+            AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String...jsonData) {
+            JSONObject jObject;
+            List<List<HashMap<String,String>>> routes = null;
+            try {
+                jObject = new JSONObject(jsonData[0]);
+                PathJSONParser parser = new PathJSONParser();
+                routes = parser.parse(jObject);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return null;
+            return routes;
         }
-*/
-        /**
-         * After completing background task Dismiss the progress dialog
-         * and show the data in UI
-         * Always use runOnUiThread(new Runnable()) to update UI from background
-         * thread, otherwise you will get error
-         * **/
-/*
-        protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all products
-            pDialog.dismiss();
-            // updating UI from Background Thread
-            runOnUiThread(new Runnable() {
-                public void run() {
-*/                    /**
-                     * Updating parsed Places into LISTVIEW
-                     * */
-                    // Get json response status
-/*                  String status = nearPlaces.status;
 
-                    // Check for all possible status
-                    if(status.equals("OK")){
-                        // Successfully got places details
-                        if (nearPlaces.results != null) {
-                            // loop through each place
-                            for (Place p : nearPlaces.results) {
-                                HashMap<String, String> map = new HashMap<String, String>();
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> routes) {
+            ArrayList<LatLng> points = null;
+            PolylineOptions polyLineOptions = null;
+            // traversing through routes
+            for (int i = 0; i < routes.size(); i++) {
+                points = new ArrayList<LatLng>();
+                polyLineOptions = new PolylineOptions();
+                List<HashMap<String, String>> path = routes.get(i);
 
-                                // Place reference won't display in listview - it will be hidden
-                                // Place reference is used to get "place full details"
-                                map.put(KEY_REFERENCE, p.reference);
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat, lng);
 
-                                // Place name
-                                map.put(KEY_NAME, p.name);
-
-
-                                // adding HashMap to ArrayList
-                                placesListItems.add(map);
-                            }
-                            // list adapter
-
-                            ListAdapter adapter = new SimpleAdapter(MapsActivity.this, placesListItems,
-                                    R.layout.list_item,
-                                    new String[] { KEY_REFERENCE, KEY_NAME}, new int[] {
-                                    R.id.reference, R.id.name });
-
-                            // Adding data into listview
-                            lv.setAdapter(adapter);
-                        }
-                    }
-                    else if(status.equals("ZERO_RESULTS")){
-                        // Zero results found
-                        alert.showAlertDialog(MapsActivity.this, "Near Places",
-                                "Sorry no places found. Try to change the types of places",
-                                false);
-                    }
-                    else if(status.equals("UNKNOWN_ERROR"))
-                    {
-                        alert.showAlertDialog(MapsActivity.this, "Places Error",
-                                "Sorry unknown error occured.",
-                                false);
-                    }
-                    else if(status.equals("OVER_QUERY_LIMIT"))
-                    {
-                        alert.showAlertDialog(MapsActivity.this, "Places Error",
-                                "Sorry query limit to google places is reached",
-                                false);
-                    }
-                    else if(status.equals("REQUEST_DENIED"))
-                    {
-                        alert.showAlertDialog(MapsActivity.this, "Places Error",
-                                "Sorry error occured. Request is denied",
-                                false);
-                    }
-                    else if(status.equals("INVALID_REQUEST"))
-                    {
-                        alert.showAlertDialog(MapsActivity.this, "Places Error",
-                                "Sorry error occured. Invalid Request",
-                                false);
-                    }
-                    else
-                    {
-                        alert.showAlertDialog(MapsActivity.this, "Places Error",
-                                "Sorry error occured.",
-                                false);
-                    }
+                    points.add(position);
                 }
-            });
 
+                polyLineOptions.addAll(points);
+                polyLineOptions.width(4);
+                polyLineOptions.color(Color.RED);
+            }
+
+            googleMap.addPolyline(polyLineOptions);
         }
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
-
-    private void addMapFragment() {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        MapFragment fragment = new MapFragment();
-//        transaction.add(R.id.mapView, fragment);
-        transaction.commit();
-    }
-*/   /* private void initEvent() {
-        ImageButton imageButtonChatList = (ImageButton)findViewById(R.id.chatlist_button);
-        imageButtonChatList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(MapsActivity.this,ChatListActivity.class);
-                startActivity(i);
-            }
-        });
-
-        ImageButton imageButtonFriendList = (ImageButton)findViewById(R.id.friendlist_button);
-        imageButtonFriendList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(MapsActivity.this, FriendListActivity.class);
-                startActivity(i);
-            }
-        });
-
-        ImageButton imageButtonProfile = (ImageButton)findViewById(R.id.profile_button);
-        imageButtonProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(MapsActivity.this, ProfileActivity.class);
-                startActivity(i);
-            }
-        });
     }
 }
-*/

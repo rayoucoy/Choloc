@@ -11,13 +11,16 @@ import android.widget.TextView;
  */
 public class Descriptor extends AppCompatActivity {
 
-
+    SessionManagement session;
     TextView title,desc;
     ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.descriptor);
+        session = new SessionManagement(getApplicationContext());
+        session.checkLogin();
+        
         desc=(TextView)findViewById(R.id.textView2);
         title=(TextView)findViewById(R.id.textView);
         img=(ImageView)findViewById(R.id.imageView);
@@ -38,7 +41,7 @@ public class Descriptor extends AppCompatActivity {
         }else if (a.equalsIgnoreCase("4")) {
             img.setImageResource(R.drawable.situ_patenggang);
             title.setText("Situ Patenggang / Situ Patengan");
-            desc.setText(R.string.desc_situpatenggang);
+//            desc.setText(R.string.desc_situpatenggang);
         }
     }
 

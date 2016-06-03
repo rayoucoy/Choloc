@@ -444,8 +444,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         Toast.makeText(LoginActivity.this, "Anda berhasil login!", Toast.LENGTH_SHORT).show();
                         session.createLoginSession(id_user, username, email);
 
-                        Intent i = null;
-                        i = new Intent(LoginActivity.this, ChatListActivity.class);
+                        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(i);
                         finish();
 
