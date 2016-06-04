@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * Created by affan on 03/06/16.
+ * Created by yudha on 03/06/16.
  */
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
 

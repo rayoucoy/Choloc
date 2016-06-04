@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by affan on 03/06/16.
+ * Created by yudha on 03/06/16.
  */
 public class MapsActivity extends FragmentActivity {
 
@@ -97,78 +97,6 @@ public class MapsActivity extends FragmentActivity {
                     i.putExtra("value","4");
                     startActivity(i);
                     //handle click here
-                }else if (marker.getTitle().equalsIgnoreCase("Taman Ade Irma Suryani"))
-                {
-                    //handle click here
-                    i.putExtra("value","5");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("Keraton Kasepuhan"))
-                {
-                    i.putExtra("value","6");
-                    startActivity(i);
-
-                    //handle click here
-                }else if (marker.getTitle().equalsIgnoreCase("banyu panas palimanan"))
-                {
-                    //handle click here
-                    i.putExtra("value","7");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("pantai kejawanan"))
-                {
-                    //handle click here
-                    i.putExtra("value","8");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("goa bumiayu"))
-                {
-                    //handle click here
-                    i.putExtra("value","9");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("situ gunung"))
-                {
-                    //handle click here
-                    i.putExtra("value","10");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("situ sukarame"))
-                {
-                    //handle click here
-                    i.putExtra("value","11");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("taman rekreasi selabintana"))
-                {
-                    //handle click here
-                    i.putExtra("value","12");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("Kebun Raya Bogor"))
-                {
-                    //handle click here
-                    i.putExtra("value","13");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("Danau Situ Gede"))
-                {
-                    //handle click here
-                    i.putExtra("value","14");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("Taman Safari Bogor"))
-                {
-                    //handle click here
-                    i.putExtra("value","15");
-                    startActivity(i);
-
-                }else if (marker.getTitle().equalsIgnoreCase("Taman Wisata Mekarsari"))
-                {
-                    //handle click here
-                    i.putExtra("value","16");
-                    startActivity(i);
-
                 }
             }
         });
@@ -197,8 +125,6 @@ public class MapsActivity extends FragmentActivity {
                     .title(lokasi4));
         }
     }
-
-
 
     private class ReadTask extends AsyncTask<String, Void, String> {
         @Override
