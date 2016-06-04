@@ -1,4 +1,4 @@
-package com.skripsi.yudha.choloc.gcm;
+package com.skripsi.yudha.choloc;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 /**
- * Created by yudha on 03/05/2016.
+ * Created by yudha on 05/06/2016.
  */
-/*public class GcmIntentService extends IntentService {
-
+public class GCMNotifIntentService extends IntentService {
     public static final int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
@@ -71,7 +71,7 @@ import android.util.Log;
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, SignUpActivity.class), 0);
+                new Intent(this, RegisterActivity.class), 0);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                 this).setSmallIcon(R.drawable.gcm_cloud)
@@ -84,4 +84,3 @@ import android.util.Log;
         Log.d(TAG, "Notification sent successfully.");
     }
 }
-*/

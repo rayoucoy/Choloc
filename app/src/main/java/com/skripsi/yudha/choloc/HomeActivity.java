@@ -6,23 +6,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class HomeActivity extends ActionBarActivity implements LocationListener {
@@ -85,6 +72,39 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
                 startActivity(in);
             }
         });
+
+        ImageButton imageButtonChatlist = (ImageButton)findViewById(R.id.chatlist_button);
+        imageButtonChatlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(), "Berpindah ke menu Chatlist", Toast.LENGTH_SHORT).show();
+                Intent i;
+                i = new Intent(HomeActivity.this,ChatListActivity.class);
+                startActivity(i);
+            }
+        });
+
+        ImageButton imageButtonFriendList = (ImageButton)findViewById(R.id.friendlist_button);
+        imageButtonFriendList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(), "Berpindah ke menu FriendList", Toast.LENGTH_SHORT).show();
+                Intent i;
+                i = new Intent(HomeActivity.this,UserListActivity.class);
+                startActivity(i);
+            }
+        });
+
+        ImageButton imageButtonProfile = (ImageButton)findViewById(R.id.profile_button);
+        imageButtonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(), "Berpindah ke menu Profile", Toast.LENGTH_SHORT).show();
+                Intent i;
+                i = new Intent(HomeActivity.this,ProfileActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void showCurrentLocation() {
@@ -116,9 +136,5 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
         // TODO Auto-generated method stub
 
     }
-
-
-
-
 
 }
