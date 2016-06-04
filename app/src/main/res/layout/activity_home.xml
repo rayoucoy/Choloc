@@ -37,7 +37,7 @@
     <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/profile"
+            android:src="@drawable/maps"
             android:layout_gravity="right"
             android:id="@+id/imageView2"
             android:layout_alignTop="@+id/imageView4"
@@ -47,7 +47,7 @@
     <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/friendlist"
+            android:src="@drawable/chatlist"
             android:layout_alignTop="@+id/imageView4"
             android:layout_toLeftOf="@+id/imageView3"
             android:layout_toStartOf="@+id/imageView3" />
@@ -55,7 +55,7 @@
     <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/maps"
+            android:src="@drawable/friendlist"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="27dp"
             android:layout_alignParentBottom="true"
