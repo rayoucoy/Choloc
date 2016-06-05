@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class HomeActivity extends ActionBarActivity implements LocationListener {
@@ -17,6 +18,7 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
     SessionManagement session;
 
     Button ceklokasi, cekdekat;
+    ImageButton chatlistbutton, friendlistbutton, mapsbutton;
     public String kode="kode", KEY1 = "key1", KEY2 = "key2", KEY3 = "key3", KEY4 = "key4", LAT1 = "1", LAT2 = "2", LAT3 = "3", LAT4 = "4", LONG1 = "11", LONG2 = "22", LONG3 = "33", LONG4 = "44", CURLAT = "111", CURLONG = "222";
     public static String satu, dua, tiga, empat, lat1, lat2, lat3, lat4, long1, long2, long3, long4;
     protected LocationManager locationManager;
@@ -52,6 +54,9 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
 
         ceklokasi = (Button) findViewById(R.id.ceklokasi);
         cekdekat = (Button) findViewById(R.id.cekdekat);
+        chatlistbutton = (ImageButton) findViewById(R.id.chatlist_button);
+        friendlistbutton = (ImageButton) findViewById(R.id.friendlist_button);
+        mapsbutton = (ImageButton) findViewById(R.id.maps_button);
 
         ceklokasi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,13 +100,13 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             }
         });
 
-        ImageButton imageButtonProfile = (ImageButton)findViewById(R.id.profile_button);
+        ImageButton imageButtonProfile = (ImageButton)findViewById(R.id.maps_button);
         imageButtonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Berpindah ke menu Profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Berpindah ke menu Maps", Toast.LENGTH_SHORT).show();
                 Intent i;
-                i = new Intent(HomeActivity.this,ProfileActivity.class);
+                i = new Intent(HomeActivity.this,MapsActivity.class);
                 startActivity(i);
             }
         });
