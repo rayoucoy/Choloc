@@ -19,10 +19,6 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
 
-import com.skripsi.yudha.choloc.R;
-import com.skripsi.yudha.choloc.app.Config;
-import com.skripsi.yudha.choloc.app.MyApplication;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -33,10 +29,15 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import com.skripsi.yudha.choloc.R;
+import com.skripsi.yudha.choloc.app.Config;
+import com.skripsi.yudha.choloc.app.MyApplication;
+
+
 /**
  * Created by yudha on 03/05/2016.
  */
-/*public class NotificationUtils {
+public class NotificationUtils {
 
     private static String TAG = NotificationUtils.class.getSimpleName();
 
@@ -100,7 +101,7 @@ import java.util.List;
 
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-        if (Config.appendNotificationMessages) {
+        if(Config.appendNotificationMessages){
             // store the notification in shared pref first
             MyApplication.getInstance().getPrefManager().addNotification(message);
 
@@ -112,7 +113,7 @@ import java.util.List;
             for (int i = messages.size() - 1; i >= 0; i--) {
                 inboxStyle.addLine(messages.get(i));
             }
-        } else {
+        }else{
             inboxStyle.addLine(message);
         }
 
@@ -125,7 +126,7 @@ import java.util.List;
                 .setSound(alarmSound)
                 .setStyle(inboxStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notification_small)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
                 .build();
@@ -147,7 +148,7 @@ import java.util.List;
                 .setSound(alarmSound)
                 .setStyle(bigPictureStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notification_small)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
                 .build();
@@ -155,12 +156,12 @@ import java.util.List;
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
     }
-*/
+
     /**
      * Downloading push notification image before displaying it in
      * the notification tray
-     */
-/*    public Bitmap getBitmapFromURL(String strURL) {
+     * */
+    public Bitmap getBitmapFromURL(String strURL) {
         try {
             URL url = new URL(strURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -186,11 +187,11 @@ import java.util.List;
             e.printStackTrace();
         }
     }
-*/
+
     /**
      * Method checks if the app is in background or not
      */
-/*    public static boolean isAppIsInBackground(Context context) {
+    public static boolean isAppIsInBackground(Context context) {
         boolean isInBackground = true;
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
@@ -220,8 +221,8 @@ import java.util.List;
         NotificationManager notificationManager = (NotificationManager) MyApplication.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }
-*/
-/*    public static long getTimeMilliSec(String timeStamp) {
+
+    public static long getTimeMilliSec(String timeStamp) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date date = format.parse(timeStamp);
@@ -231,4 +232,4 @@ import java.util.List;
         }
         return 0;
     }
-}*/
+}

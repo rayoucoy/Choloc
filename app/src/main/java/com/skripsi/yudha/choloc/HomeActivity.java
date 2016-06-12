@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.skripsi.yudha.choloc.activity.*;
+
 public class HomeActivity extends ActionBarActivity implements LocationListener {
     // Session Management Class
     SessionManagement session;
@@ -84,7 +86,7 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Berpindah ke menu Chatlist", Toast.LENGTH_SHORT).show();
                 Intent i;
-                i = new Intent(HomeActivity.this,ChatListActivity.class);
+                i = new Intent(HomeActivity.this, com.skripsi.yudha.choloc.activity.MainActivity.class);
                 startActivity(i);
             }
         });
@@ -100,8 +102,8 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             }
         });
 
-        ImageButton imageButtonProfile = (ImageButton)findViewById(R.id.maps_button);
-        imageButtonProfile.setOnClickListener(new View.OnClickListener() {
+        ImageButton imageButtonMaps = (ImageButton)findViewById(R.id.maps_button);
+        imageButtonMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Berpindah ke menu Maps", Toast.LENGTH_SHORT).show();
