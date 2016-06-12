@@ -36,7 +36,8 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
     protected LocationListener locationListener;
     protected Context context;
     String provider;
-    public static String curlat = "-6.973981", curlong = "107.6293685";
+//    public static String curlat = "-6.973981", curlong = "107.6293685";
+    public static String curlat = "-6.247149", curlong = "106.815172";
     protected boolean gps_enabled, network_enabled;
 
     @Override
