@@ -47,8 +47,17 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
         curlong = String.valueOf(location.getLongitude());
     }
 
+    // Disable back button
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         // Session class instance
