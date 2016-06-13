@@ -49,6 +49,12 @@ public class MyGcmPushReceiver extends GcmListenerService {
         if (flag == null)
             return;
 
+        if(MyApplication.getInstance().getPrefManager().getUser() == null){
+            // user is not logged in, skipping push notification
+            Log.e(TAG, "user is not logged in, skipping push notification");
+            return;
+        }
+
         if (from.startsWith("/topics/")) {
             // message received from some topic.
         } else {
@@ -87,10 +93,18 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
                 JSONObject uObj = datObj.getJSONObject("user");
 
+                // skip the message if the message belongs to same user as
+                // the user would be having the same message when he was sending
+                // but it might differs in your scenario
+                if (uObj.getString("user_id").equals(MyApplication.getInstance().getPrefManager().getUser().getId())) {
+                    Log.e(TAG, "Skipping the push message as it belongs to same user");
+                    return;
+                }
+
                 User user = new User();
                 user.setId(uObj.getString("user_id"));
                 user.setEmail(uObj.getString("email"));
-                user.setName(uObj.getString("name"));
+                user.setName(uObj.getString("username"));
                 message.setUser(user);
 
                 // verifying whether the app is in background or foreground
@@ -147,7 +161,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 User user = new User();
                 user.setId(uObj.getString("user_id"));
                 user.setEmail(uObj.getString("email"));
-                user.setName(uObj.getString("name"));
+                user.setName(uObj.getString("username"));
                 message.setUser(user);
 
                 // verifying whether the app is in background or foreground

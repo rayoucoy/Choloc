@@ -67,7 +67,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         chatRoomId = intent.getStringExtra("chat_room_id");
-        String title = intent.getStringExtra("username");
+        String title = intent.getStringExtra("name");
 
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

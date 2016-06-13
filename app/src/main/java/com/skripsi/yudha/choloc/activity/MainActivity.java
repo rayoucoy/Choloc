@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import com.skripsi.yudha.choloc.LoginActivity;
 import com.skripsi.yudha.choloc.R;
 import com.skripsi.yudha.choloc.adapter.ChatRoomsAdapter;
 import com.skripsi.yudha.choloc.app.Config;
@@ -55,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /**
+         * Check for login session. If not logged in launch
+         * login activity
+         * */
+        if (MyApplication.getInstance().getPrefManager().getUser() == null) {
+            launchLoginActivity();
+        }
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -244,6 +254,13 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(GcmIntentService.TOPIC, "topic_" + cr.getId());
             startService(intent);
         }
+    }
+
+    private void launchLoginActivity() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     @Override

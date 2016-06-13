@@ -10,10 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.skripsi.yudha.choloc.activity.*;
 
 public class HomeActivity extends ActionBarActivity implements LocationListener {
     // Session Management Class
@@ -85,11 +82,31 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Berpindah ke menu Chatlist", Toast.LENGTH_SHORT).show();
-                Intent i;
-                i = new Intent(HomeActivity.this, com.skripsi.yudha.choloc.activity.MainActivity.class);
+                Intent a;
+                a = new Intent(HomeActivity.this, com.skripsi.yudha.choloc.activity.MainActivity.class);
+                startActivity(a);
+            }
+        });
+
+/*        ImageButton imageButtonChatlist = (ImageButton) findViewById(R.id.chatlist_button);
+        imageButtonChatlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = null;
+                i = new Intent(getBaseContext(), com.skripsi.yudha.choloc.activity.MainActivity.class);
                 startActivity(i);
             }
         });
+
+        chatlistbutton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        com.skripsi.yudha.choloc.activity.MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });*/
 
         ImageButton imageButtonFriendList = (ImageButton)findViewById(R.id.friendlist_button);
         imageButtonFriendList.setOnClickListener(new View.OnClickListener() {
