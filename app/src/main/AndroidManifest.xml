@@ -9,14 +9,29 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- needed for older devices -
+ used to check app background / foreground status -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <!-- START Added for GCM -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <permission
+        android:name="com.skripsi.yudha.choloc.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.skripsi.yudha.choloc.permission.C2D_MESSAGE" />
+    <!-- END Added for GCM -->
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,18 +47,12 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-
-
         <activity
-            android:name=".HomeActivity"
-            android:label="@string/title_activity_home" />
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" />
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_chatlist"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
@@ -55,11 +64,11 @@
         <activity
             android:name=".Descriptor"
             android:label="@string/title_activity_descriptor"
-            android:parentActivityName=".MapsActivity"
+            android:parentActivityName=".Descriptor"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.skripsi.yudha.choloc.MapsActivity" />
+                android:value="com.skripsi.yudha.choloc.Descriptor" />
         </activity>
 
         <activity
@@ -70,9 +79,34 @@
                 android:value="com.skripsi.yudha.choloc.MapsActivity2" />
         </activity>
 
-        <activity
-            android:name=".NewPasswordActivity"
-            android:label="@string/title_activity_new_password" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+        <activity android:name=".FriendList">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"></action>
+                <category
+                    android:name="android.intent.category.NORMAL">
+                </category>
+            </intent-filter>
+        </activity>
+        <service android:name=".services.IMService"></service>
+
+        <activity android:name=".Messaging">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"></action>
+                <category
+                    android:name="android.intent.category.NORMAL">
+                </category>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AddFriend"><intent-filter><action android:name="android.intent.action.MAIN"></action>
+            <category android:name="android.intent.category.NORMAL"></category>
+        </intent-filter>
+        </activity>
+        <activity android:name=".UnApprovedFriendList"><intent-filter><action android:name="android.intent.action.MAIN"></action>
+            <category android:name="android.intent.category.NORMAL"></category>
+        </intent-filter>
+        </activity>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"

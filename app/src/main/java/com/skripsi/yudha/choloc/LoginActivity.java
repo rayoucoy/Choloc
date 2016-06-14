@@ -57,6 +57,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     String email;
     Boolean mAuthTask;
 
+    public static final String AUTHENTICATION_FAILED = "0";
+    public static final String FRIEND_LIST = "FRIEND_LIST";
+
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
@@ -78,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
