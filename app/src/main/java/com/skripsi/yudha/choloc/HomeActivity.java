@@ -77,7 +77,7 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             }
         });
 
-        ImageButton imageButtonChatlist = (ImageButton)findViewById(R.id.chatlist_button);
+/*        ImageButton imageButtonChatlist = (ImageButton)findViewById(R.id.chatlist_button);
         imageButtonChatlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +88,7 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             }
         });
 
-/*        ImageButton imageButtonChatlist = (ImageButton) findViewById(R.id.chatlist_button);
+        ImageButton imageButtonChatlist = (ImageButton) findViewById(R.id.chatlist_button);
         imageButtonChatlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,15 +106,15 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
                 startActivity(i);
                 finish();
             }
-        });*/
-
+        });
+*/
         ImageButton imageButtonFriendList = (ImageButton)findViewById(R.id.friendlist_button);
         imageButtonFriendList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Berpindah ke menu FriendList", Toast.LENGTH_SHORT).show();
                 Intent i;
-                i = new Intent(HomeActivity.this,UserListActivity.class);
+                i = new Intent(HomeActivity.this,FriendList.class);
                 startActivity(i);
             }
         });
