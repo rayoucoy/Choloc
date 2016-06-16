@@ -44,8 +44,8 @@ public class MapsActivity extends FragmentActivity {
         setContentView(R.layout.maplayout);
         session = new SessionManagement(getApplicationContext());
         session.checkLogin();
-        SupportMapFragment fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
-        Intent i=getIntent();
+        SupportMapFragment fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.maps);
+        /*Intent i=getIntent();
         lokasi1=i.getStringExtra(KEY1);
         lokasi2=i.getStringExtra(KEY2);
         lokasi3=i.getStringExtra(KEY3);
@@ -59,7 +59,7 @@ public class MapsActivity extends FragmentActivity {
         LAT2=new LatLng((Double.parseDouble(lati2)),(Double.parseDouble(longi2)));
         LAT3=new LatLng((Double.parseDouble(lati3)),(Double.parseDouble(longi3)));
         LAT4=new LatLng((Double.parseDouble(lati4)),(Double.parseDouble(longi4)));
-        CURRENT=new LatLng((Double.parseDouble(latsek)),(Double.parseDouble(longsek)));
+        CURRENT=new LatLng((Double.parseDouble(latsek)),(Double.parseDouble(longsek)));*/
         googleMap = fm.getMap();
         MarkerOptions options = new MarkerOptions();
         options.position(CURRENT);
@@ -73,6 +73,7 @@ public class MapsActivity extends FragmentActivity {
         downloadTask.execute(url);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CURRENT, 13));
         addMarkers();
+
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
