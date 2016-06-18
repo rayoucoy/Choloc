@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.skripsi.yudha.choloc.activity.MainActivity;
 
 import org.json.JSONObject;
 
@@ -130,7 +131,7 @@ public class MapsActivity extends FragmentActivity {
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Intent i=new Intent(getApplicationContext(), Descriptor.class);
+                Intent i=new Intent(getApplicationContext(), MainActivity.class);
                 if (marker.getTitle().equalsIgnoreCase("Kampung Wisata Taman Lele"))
                 {
                     //handle click here
