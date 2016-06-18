@@ -46,20 +46,11 @@
         android:scaleType="centerCrop"/>
 
 
-    <ImageView
-            android:id="@+id/bChat"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/chatlist"
-            android:layout_alignTop="@+id/imageView4"
-            android:layout_toLeftOf="@+id/imageView3"
-            android:layout_toStartOf="@+id/imageView3" />
-
     <ImageButton
+        android:id="@+id/chatlist_button"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/chatlist"
-        android:id="@+id/chatlist_button"
         android:layout_alignTop="@+id/friendlist_button"
         android:layout_toLeftOf="@+id/imageView3"
         android:layout_toStartOf="@+id/imageView3"

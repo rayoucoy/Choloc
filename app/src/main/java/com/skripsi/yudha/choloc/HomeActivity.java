@@ -51,12 +51,15 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
         // Session class instance
         session = new SessionManagement(getApplicationContext());
         session.checkLogin();
+        initLayout();
+        initEvent();
 
-        ceklokasi = (Button) findViewById(R.id.ceklokasi);
-        cekdekat = (Button) findViewById(R.id.cekdekat);
-        chatlistbutton = (ImageButton) findViewById(R.id.chatlist_button);
-        friendlistbutton = (ImageButton) findViewById(R.id.friendlist_button);
-        mapsbutton = (ImageButton) findViewById(R.id.maps_button);
+    }
+
+    private void initEvent() {
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
         ceklokasi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +67,6 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
                 showCurrentLocation();
             }
         });
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
         cekdekat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,39 +79,8 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             }
         });
 
-/*        ImageButton imageButtonChatlist = (ImageButton)findViewById(R.id.chatlist_button);
-        imageButtonChatlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Berpindah ke menu Chatlist", Toast.LENGTH_SHORT).show();
-                Intent a;
-                a = new Intent(HomeActivity.this, com.skripsi.yudha.choloc.activity.MainActivity.class);
-                startActivity(a);
-            }
-        });
 
-        ImageButton imageButtonChatlist = (ImageButton) findViewById(R.id.chatlist_button);
-        imageButtonChatlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = null;
-                i = new Intent(getBaseContext(), com.skripsi.yudha.choloc.activity.MainActivity.class);
-                startActivity(i);
-            }
-        });
-
-        chatlistbutton.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),
-                        com.skripsi.yudha.choloc.activity.MainActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-*/
-        ImageButton imageButtonFriendList = (ImageButton)findViewById(R.id.friendlist_button);
-        imageButtonFriendList.setOnClickListener(new View.OnClickListener() {
+        friendlistbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Berpindah ke menu FriendList", Toast.LENGTH_SHORT).show();
@@ -120,8 +90,8 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             }
         });
 
-        ImageButton imageButtonMaps = (ImageButton)findViewById(R.id.maps_button);
-        imageButtonMaps.setOnClickListener(new View.OnClickListener() {
+
+        mapsbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Berpindah ke menu Maps", Toast.LENGTH_SHORT).show();
@@ -130,6 +100,23 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
                 startActivity(i);
             }
         });
+
+        chatlistbutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent chatListAct = new Intent(HomeActivity.this,ChatActivity.class);
+            }
+        });
+
+
+    }
+
+    private void initLayout() {
+        ceklokasi = (Button) findViewById(R.id.ceklokasi);
+        cekdekat = (Button) findViewById(R.id.cekdekat);
+        chatlistbutton = (ImageButton) findViewById(R.id.chatlist_button);
+        friendlistbutton = (ImageButton) findViewById(R.id.friendlist_button);
+        mapsbutton = (ImageButton) findViewById(R.id.maps_button);
     }
 
     private void showCurrentLocation() {
