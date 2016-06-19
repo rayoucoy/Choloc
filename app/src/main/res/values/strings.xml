@@ -3,6 +3,7 @@
     <string name="hello">AndroidIM</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_chat_room_discussion">ChatRoomDiscussionActivity</string>
+    <string name="chatroom">ChatRoom</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

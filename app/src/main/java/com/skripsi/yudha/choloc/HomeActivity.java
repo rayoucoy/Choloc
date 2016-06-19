@@ -7,14 +7,19 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 public class HomeActivity extends ActionBarActivity implements LocationListener {
     // Session Management Class
-    SessionManagement session;
+    static SessionManagement session;
 
     Button ceklokasi, cekdekat;
     ImageButton chatlistbutton, friendlistbutton, mapsbutton;
@@ -26,6 +31,11 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
     String provider;
     public static String curlat = "-6.973981", curlong = "107.6293685";
     protected boolean gps_enabled, network_enabled;
+
+    //
+    private RequestQueue mRequestQueue;
+    public static final String TAG = HomeActivity.class.getSimpleName();
+    private static HomeActivity mInst;
 
     @Override
     public void onLocationChanged(Location location) {
@@ -77,7 +87,7 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             }
         });
 
-/*        ImageButton imageButtonChatlist = (ImageButton)findViewById(R.id.chatlist_button);
+        ImageButton imageButtonChatlist = (ImageButton)findViewById(R.id.chatlist_button);
         imageButtonChatlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +98,7 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             }
         });
 
-        ImageButton imageButtonChatlist = (ImageButton) findViewById(R.id.chatlist_button);
+/*        ImageButton imageButtonChatlist = (ImageButton) findViewById(R.id.chatlist_button);
         imageButtonChatlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +117,7 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
                 finish();
             }
         });
-*/
+
         ImageButton imageButtonFriendList = (ImageButton)findViewById(R.id.friendlist_button);
         imageButtonFriendList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +127,7 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
                 i = new Intent(HomeActivity.this,FriendList.class);
                 startActivity(i);
             }
-        });
+        });*/
 
         ImageButton imageButtonMaps = (ImageButton)findViewById(R.id.maps_button);
         imageButtonMaps.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +139,7 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
                 startActivity(i);
             }
         });
+        mInst = this;
     }
 
     private void showCurrentLocation() {
@@ -159,6 +170,38 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
     public void onProviderDisabled(String provider) {
         // TODO Auto-generated method stub
 
+    }
+
+    public static HomeActivity getInstance(){
+        return mInst;
+    }
+
+    public <T> void addToRequestQueue(Request<T> req, String tag) {
+        req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
+        getRequestQueue().add(req);
+    }
+
+    public <T> void addToRequestQueue(Request<T> req) {
+        req.setTag(TAG);
+        getRequestQueue().add(req);
+    }
+
+    public void cancelPendingRequests(Object tag) {
+        if (mRequestQueue != null) {
+            mRequestQueue.cancelAll(tag);
+        }
+    }
+
+    public RequestQueue getRequestQueue() {
+        if (mRequestQueue == null) {
+            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+
+        return mRequestQueue;
+    }
+
+    public static SessionManagement getSession(){
+        return session;
     }
 
 }

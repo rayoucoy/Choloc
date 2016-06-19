@@ -8,6 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="@android:attr/actionBarTabStyle">@style/tab_nav</item>
         <item name="android:actionBarTabTextStyle">@style/actionBarTabTextStyle</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="actionBarTabTextStyle" parent="android:Widget.Holo.Light.ActionBar.TabText.Inverse">

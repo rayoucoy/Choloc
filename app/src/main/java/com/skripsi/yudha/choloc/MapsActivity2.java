@@ -19,28 +19,34 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    Location end,bd1,bd2,bd3,bd4,sk1,sk2,sk3,sk4,bg1,bg2,bg3,bg4,cr1,cr2,cr3,cr4;
+    Location end,wisata1,wisata2,wisata3,wisata4,wisata5,wisata6,wisata7,wisata8,wisata9,wisata10,
+            wisata11,wisata12,wisata13,wisata14,wisata15,wisata16;
+
     static Location start;
     String kode="kode",CURLAT="111",CURLONG="222";
     static String code,curlatt,curlongg,lokasi;
     static double curlat,curlong,jarak;
     static double[] temp= new double[16];
-    Double KPlat = -7.1661110,KPlong = 107.4022220;
-    Double SPlat = -7.1669440,SPlong = 107.3580560;
-    Double TSBlat = -6.9259410,TSBlong = 107.6361910;
-    Double GSlat = -6.8999250,GSlong = 107.6229660;
-    Double TAISlat = -6.7178013,TAISlong = 108.5715166;
-    Double KKlat = -6.7263338,KKlong = 108.5688174;
-    Double BPPlat = -6.6975145,BPPlong = 108.3980838;
-    Double PKlat = -6.7336135,PKlong = 108.5836023;
-    Double GBAlat = -7.0365391,GBAlong = 106.9042672;
-    Double SGlat = -6.8319442,SGlong = 106.9143008;
-    Double SSlat = -6.794454,SSlong = 106.710364;
-    Double TRSlat = -6.8489119,TRSlong = 106.9591489;
-    Double KRBlat = -6.5976289,KRBlong = 106.7973811;
-    Double DSGlat = -6.5533715,DSGlong = 106.7447576;
-    Double TSBRlat = -6.7166697,TSBRlong = 106.9474347;
-    Double TWMlat = -6.4219834,TWMlong = 106.9821608;
+    Double LAT1 = -6.985906,LONG1 = 110.345631;
+    Double LAT2 = -6.924171,LONG2 = 110.478484;
+    Double LAT3 = -7.038525,LONG3 = 110.351087;
+    Double LAT4 = -7.116164,LONG4 = 110.422420;
+    Double LAT5 = -7.194939,LONG5 = 110.373513;
+    Double LAT6 = -7.205499,LONG6 = 110.341971;
+    Double LAT7 = -7.021035,LONG7 = 110.376843;
+    Double LAT8 = -7.359403,LONG8 = 110.422859;
+    Double LAT9 = -7.129845,LONG9 = 110.389233;
+    Double LAT10 = -7.208178,LONG10 = 110.341753;
+    Double LAT11 = -7.148884,LONG11 = 110.360616;
+    Double LAT12 = -7.304380,LONG12 = 110.411302;
+    Double LAT13 = -7.131754,LONG13 = 110.395018;
+    Double LAT14 = -7.192791,LONG14 = 110.364666;
+    Double LAT15 = -6.990378,LONG15 = 110.423124;
+    Double LAT16 = -6.984069,LONG16 = 110.410814;
+    Double LAT17 = -6.984336,LONG17 = 110.409301;
+    Double LAT18 = -7.049550,LONG18 = 110.438541;
+    Double LAT19 = -6.994744,LONG19 = 110.424609;
+    Double LAT20 = -7.050616,LONG20 = 110.392740;
     SessionManagement session;
 
 
@@ -56,22 +62,23 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         Intent i=getIntent();
         start=new Location("");
-        bd1=new Location("");
-        bd2=new Location("");
-        bd3=new Location("");
-        bd4=new Location("");
-        cr1=new Location("");
-        cr2=new Location("");
-        cr3=new Location("");
-        cr4=new Location("");
-        bg1=new Location("");
-        bg2=new Location("");
-        bg3=new Location("");
-        bg4=new Location("");
-        sk1=new Location("");
-        sk2=new Location("");
-        sk3=new Location("");
-        sk4=new Location("");
+        wisata1=new Location("");
+        wisata2=new Location("");
+        wisata3=new Location("");
+        wisata4=new Location("");
+        wisata5=new Location("");
+        wisata6=new Location("");
+        wisata7=new Location("");
+        wisata8=new Location("");
+        wisata9=new Location("");
+        wisata10=new Location("");
+        wisata11=new Location("");
+        wisata12=new Location("");
+        wisata13=new Location("");
+        wisata14=new Location("");
+        wisata15=new Location("");
+        wisata16=new Location("");
+
         start=new Location("");
         code=i.getStringExtra(kode);
         curlatt=i.getStringExtra(CURLAT);
@@ -80,19 +87,19 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         curlong=Double.parseDouble(curlongg);
         start.setLatitude(curlat);
         start.setLongitude(curlong);
-        if (code.equalsIgnoreCase("BDG")){
-            bd1.setLatitude(KPlat);
-            bd1.setLongitude(KPlong);
-            bd2.setLatitude(SPlat);
-            bd2.setLongitude(SPlong);
-            bd3.setLatitude(TSBlat);
-            bd3.setLongitude(TSBlong);
-            bd4.setLatitude(GSlat);
-            bd4.setLongitude(GSlong);
-            temp[0]=start.distanceTo(bd1);
-            temp[1]=start.distanceTo(bd2);
-            temp[2]=start.distanceTo(bd3);
-            temp[3]=start.distanceTo(bd4);
+        if (code.equalsIgnoreCase("WISATA")){
+            wisata1.setLatitude(LAT1);
+            wisata1.setLongitude(LONG1);
+            wisata2.setLatitude(LAT2);
+            wisata2.setLongitude(LONG2);
+            wisata3.setLatitude(LAT3);
+            wisata3.setLongitude(LONG3);
+            wisata4.setLatitude(LAT4);
+            wisata4.setLongitude(LONG4);
+            temp[0]=start.distanceTo(wisata1);
+            temp[1]=start.distanceTo(wisata2);
+            temp[2]=start.distanceTo(wisata3);
+            temp[3]=start.distanceTo(wisata4);
             jarak=999999999;
             for (int n=0;n<=3;n++){
                 if (jarak>temp[n]) {
@@ -100,32 +107,32 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 }
             }
             if(jarak==temp[0]){
-                end=bd1;
-                lokasi="Kawah putih";
+                end=wisata1;
+                lokasi="Kampung Wisata Taman Lele";
             }else if(jarak==temp[1]){
-                end=bd2;
-                lokasi="Situ Patengan";
+                end=wisata2;
+                lokasi="Wisata Bahari Morosari";
             }else if(jarak==temp[2]){
-                end=bd3;
-                lokasi="Trans Studio Bandung";
+                end=wisata3;
+                lokasi="Wisata Goa Kreo";
             }else if(jarak==temp[3]){
-                end=bd4;
-                lokasi="Gedung Sate";
+                end=wisata4;
+                lokasi="Wisata Alam Wana Wisata Penggaron";
             }
 
-        }else if (code.equalsIgnoreCase("CRB")){
-            cr1.setLatitude(TAISlat);
-            cr1.setLongitude(TAISlong);
-            cr2.setLatitude(KKlat);
-            cr2.setLongitude(KKlong);
-            cr3.setLatitude(BPPlat);
-            cr3.setLongitude(BPPlong);
-            cr4.setLatitude(PKlat);
-            cr4.setLongitude(PKlong);
-            temp[0]=start.distanceTo(cr1);
-            temp[1]=start.distanceTo(cr2);
-            temp[2]=start.distanceTo(cr3);
-            temp[3]=start.distanceTo(cr4);
+        }else if (code.equalsIgnoreCase("WISATA")){
+            wisata5.setLatitude(LAT5);
+            wisata5.setLongitude(LONG5);
+            wisata6.setLatitude(LAT6);
+            wisata6.setLongitude(LONG6);
+            wisata7.setLatitude(LAT7);
+            wisata7.setLongitude(LONG7);
+            wisata8.setLatitude(LAT8);
+            wisata8.setLongitude(LONG8);
+            temp[0]=start.distanceTo(wisata5);
+            temp[1]=start.distanceTo(wisata6);
+            temp[2]=start.distanceTo(wisata7);
+            temp[3]=start.distanceTo(wisata8);
             jarak=999999999;
             for (int n=0;n<=3;n++){
                 if (jarak>temp[n]) {
@@ -133,31 +140,31 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 }
             }
             if(jarak==temp[0]){
-                end=cr1;
-                lokasi="Taman Ade Irma Suryani";
+                end=wisata5;
+                lokasi="Umbul Sidomukti";
             }else if(jarak==temp[1]){
-                end=cr2;
-                lokasi="Keraton Kasepuhan";
+                end=wisata6;
+                lokasi="Vanaprastha Gedongsongo Park";
             }else if(jarak==temp[2]){
-                end=cr3;
-                lokasi="Banyu Panas Palimanan";
+                end=wisata7;
+                lokasi="Desa Wisata Lembah Kalipancur";
             }else if(jarak==temp[3]){
-                end=cr4;
-                lokasi="Pantai Kejawanan";
+                end=wisata8;
+                lokasi="Air Terjun Kalipancur Nogosaren";
             }
-        }else if (code.equalsIgnoreCase("SKB")){
-            sk1.setLatitude(GBAlat);
-            sk1.setLongitude(GBAlong);
-            sk2.setLatitude(SGlat);
-            sk2.setLongitude(SGlong);
-            sk3.setLatitude(SSlat);
-            sk3.setLongitude(SSlong);
-            sk4.setLatitude(TRSlat);
-            sk4.setLongitude(TRSlong);
-            temp[0]=start.distanceTo(sk1);
-            temp[1]=start.distanceTo(sk2);
-            temp[2]=start.distanceTo(sk3);
-            temp[3]=start.distanceTo(sk4);
+        }else if (code.equalsIgnoreCase("WISATA")){
+            wisata9.setLatitude(LAT9);
+            wisata9.setLongitude(LONG9);
+            wisata10.setLatitude(LAT10);
+            wisata10.setLongitude(LONG10);
+            wisata11.setLatitude(LAT11);
+            wisata11.setLongitude(LONG11);
+            wisata12.setLatitude(LAT12);
+            wisata12.setLongitude(LONG12);
+            temp[0]=start.distanceTo(wisata9);
+            temp[1]=start.distanceTo(wisata10);
+            temp[2]=start.distanceTo(wisata11);
+            temp[3]=start.distanceTo(wisata12);
             jarak=999999999;
             for (int n=0;n<=3;n++){
                 if (jarak>temp[n]) {
@@ -165,31 +172,31 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 }
             }
             if(jarak==temp[0]){
-                end=sk1;
-                lokasi="Goa BumiAyu";
+                end=wisata9;
+                lokasi="Watu Gunung";
             }else if(jarak==temp[1]){
-                end=sk2;
-                lokasi="Situ Gunung";
+                end=wisata10;
+                lokasi="Candi Gedong Songo";
             }else if(jarak==temp[2]){
-                end=sk3;
-                lokasi="Situ Sukarame";
+                end=wisata11;
+                lokasi="Curug Lawe Benowo Kalisidi";
             }else if(jarak==temp[3]){
-                end=sk4;
-                lokasi="Taman Rekreasi Selabintana";
+                end=wisata12;
+                lokasi="Bukit Cinta Rawa Pening";
             }
-        }else if (code.equalsIgnoreCase("BGR")){
-            bg1.setLatitude(KRBlat);
-            bg1.setLongitude(KRBlong);
-            bg2.setLatitude(DSGlat);
-            bg2.setLongitude(DSGlong);
-            bg3.setLatitude(TSBRlat);
-            bg3.setLongitude(TSBRlong);
-            bg4.setLatitude(TWMlat);
-            bg4.setLongitude(TWMlong);
-            temp[0]=start.distanceTo(bg1);
-            temp[1]=start.distanceTo(bg2);
-            temp[2]=start.distanceTo(bg3);
-            temp[3]=start.distanceTo(bg4);
+        }else if (code.equalsIgnoreCase("WISATA")){
+            wisata13.setLatitude(LAT13);
+            wisata13.setLongitude(LONG13);
+            wisata14.setLatitude(LAT14);
+            wisata14.setLongitude(LONG14);
+            wisata15.setLatitude(LAT15);
+            wisata15.setLongitude(LONG15);
+            wisata16.setLatitude(LAT16);
+            wisata16.setLongitude(LONG16);
+            temp[0]=start.distanceTo(wisata13);
+            temp[1]=start.distanceTo(wisata14);
+            temp[2]=start.distanceTo(wisata15);
+            temp[3]=start.distanceTo(wisata16);
             jarak=999999999;
             for (int n=0;n<=3;n++){
                 if (jarak>temp[n]) {
@@ -197,67 +204,67 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 }
             }
             if(jarak==temp[0]){
-                end=bg1;
-                lokasi="Kebun Raya Bogor";
+                end=wisata13;
+                lokasi="Kolam Renang Tirto Agung Siwarak";
             }else if(jarak==temp[1]){
-                end=bg2;
-                lokasi="Danau Situ Gede";
+                end=wisata14;
+                lokasi="Basecamp Mawar";
             }else if(jarak==temp[2]){
-                end=bg3;
-                lokasi="Taman Safari Bogor";
+                end=wisata15;
+                lokasi="Simpang Lima Semarang";
             }else if(jarak==temp[3]){
-                end=bg4;
-                lokasi="Taman Wisata Mekarsari";
+                end=wisata16;
+                lokasi="Lawang Sewu";
             }
         }else if (code.equalsIgnoreCase("ALL")){
-            bg1.setLatitude(KRBlat);
-            bg1.setLongitude(KRBlong);
-            bg2.setLatitude(DSGlat);
-            bg2.setLongitude(DSGlong);
-            bg3.setLatitude(TSBRlat);
-            bg3.setLongitude(TSBRlong);
-            bg4.setLatitude(TWMlat);
-            bg4.setLongitude(TWMlong);
-            sk1.setLatitude(GBAlat);
-            sk1.setLongitude(GBAlong);
-            sk2.setLatitude(SGlat);
-            sk2.setLongitude(SGlong);
-            sk3.setLatitude(SSlat);
-            sk3.setLongitude(SSlong);
-            sk4.setLatitude(TRSlat);
-            sk4.setLongitude(TRSlong);
-            cr1.setLatitude(TAISlat);
-            cr1.setLongitude(TAISlong);
-            cr2.setLatitude(KKlat);
-            cr2.setLongitude(KKlong);
-            cr3.setLatitude(BPPlat);
-            cr3.setLongitude(BPPlong);
-            cr4.setLatitude(PKlat);
-            cr4.setLongitude(PKlong);
-            bd1.setLatitude(KPlat);
-            bd1.setLongitude(KPlong);
-            bd2.setLatitude(SPlat);
-            bd2.setLongitude(SPlong);
-            bd3.setLatitude(TSBlat);
-            bd3.setLongitude(TSBlong);
-            bd4.setLatitude(GSlat);
-            bd4.setLongitude(GSlong);
-            temp[0]=start.distanceTo(bg1);
-            temp[1]=start.distanceTo(bg2);
-            temp[2]=start.distanceTo(bg3);
-            temp[3]=start.distanceTo(bg4);
-            temp[4]=start.distanceTo(bd1);
-            temp[5]=start.distanceTo(bd2);
-            temp[6]=start.distanceTo(bd3);
-            temp[7]=start.distanceTo(bd4);
-            temp[8]=start.distanceTo(sk1);
-            temp[9]=start.distanceTo(sk2);
-            temp[10]=start.distanceTo(sk3);
-            temp[11]=start.distanceTo(sk4);
-            temp[12]=start.distanceTo(cr1);
-            temp[13]=start.distanceTo(cr2);
-            temp[14]=start.distanceTo(cr3);
-            temp[15]=start.distanceTo(cr4);
+            wisata1.setLatitude(LAT1);
+            wisata1.setLongitude(LONG1);
+            wisata2.setLatitude(LAT2);
+            wisata2.setLongitude(LONG2);
+            wisata3.setLatitude(LAT3);
+            wisata3.setLongitude(LONG3);
+            wisata4.setLatitude(LAT4);
+            wisata4.setLongitude(LONG4);
+            wisata5.setLatitude(LAT5);
+            wisata5.setLongitude(LONG5);
+            wisata6.setLatitude(LAT6);
+            wisata6.setLongitude(LONG6);
+            wisata7.setLatitude(LAT7);
+            wisata7.setLongitude(LONG7);
+            wisata8.setLatitude(LAT8);
+            wisata8.setLongitude(LONG8);
+            wisata9.setLatitude(LAT9);
+            wisata9.setLongitude(LONG9);
+            wisata10.setLatitude(LAT10);
+            wisata10.setLongitude(LONG10);
+            wisata11.setLatitude(LAT11);
+            wisata11.setLongitude(LONG11);
+            wisata12.setLatitude(LAT12);
+            wisata12.setLongitude(LONG12);
+            wisata13.setLatitude(LAT13);
+            wisata13.setLongitude(LONG13);
+            wisata14.setLatitude(LAT14);
+            wisata14.setLongitude(LONG14);
+            wisata15.setLatitude(LAT15);
+            wisata15.setLongitude(LONG15);
+            wisata16.setLatitude(LAT16);
+            wisata16.setLongitude(LONG16);
+            temp[0]=start.distanceTo(wisata1);
+            temp[1]=start.distanceTo(wisata2);
+            temp[2]=start.distanceTo(wisata3);
+            temp[3]=start.distanceTo(wisata4);
+            temp[4]=start.distanceTo(wisata5);
+            temp[5]=start.distanceTo(wisata6);
+            temp[6]=start.distanceTo(wisata7);
+            temp[7]=start.distanceTo(wisata8);
+            temp[8]=start.distanceTo(wisata9);
+            temp[9]=start.distanceTo(wisata10);
+            temp[10]=start.distanceTo(wisata11);
+            temp[11]=start.distanceTo(wisata12);
+            temp[12]=start.distanceTo(wisata13);
+            temp[13]=start.distanceTo(wisata14);
+            temp[14]=start.distanceTo(wisata15);
+            temp[15]=start.distanceTo(wisata16);
             jarak=999999999;
             for (int n=0;n<=15;n++){
                 if (jarak>temp[n]) {
@@ -265,37 +272,37 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 }
             }
             if(jarak==temp[0]){
-                end=bg1;lokasi="Kebun Raya Bogor";
+                end=wisata1;lokasi="Kampung Wisata Taman Lele";
             }else if(jarak==temp[1]){
-                end=bg2;lokasi="Danau Situ Gede";
+                end=wisata2;lokasi="Wisata Bahari Morosari";
             }else if(jarak==temp[2]){
-                end=bg3;lokasi="Taman Safari Bogor";
+                end=wisata3;lokasi="Wisata Goa Kreo";
             }else if(jarak==temp[3]){
-                end=bg4;lokasi="Taman Wisata Mekarsari";
-            }else if(jarak==temp[8]){
-                end=sk1;lokasi="Goa BumiAyu";
-            }else if(jarak==temp[9]){
-                end=sk2;lokasi="Situ Gunung";
-            }else if(jarak==temp[10]){
-                end=sk3;lokasi="Situ Sukarame";
-            }else if(jarak==temp[11]){
-                end=sk4;lokasi="Taman Rekreasi Selabintana";
-            }else if(jarak==temp[12]){
-                end=cr1;lokasi="Taman Ade Irma Suryani";
-            }else if(jarak==temp[13]){
-                end=cr2;lokasi="Keraton Kasepuhan";
-            }else if(jarak==temp[14]){
-                end=cr3;lokasi="Banyu Panas Palimanan";
-            }else if(jarak==temp[15]){
-                end=cr4;lokasi="Pantai Kejawanan";
+                end=wisata4;lokasi="Wisata Alam Wana Wisata Penggaron";
             }else if(jarak==temp[4]){
-                end=bd1;lokasi="Kawah putih";
+                end=wisata5;lokasi="Umbul Sidomukti";
             }else if(jarak==temp[5]){
-                end=bd2;lokasi="Situ Patengan";
+                end=wisata6;lokasi="Vanaprastha Gedongsongo Park";
             }else if(jarak==temp[6]){
-                end=bd3;lokasi="Trans Studio Bandung";
+                end=wisata7;lokasi="Desa Wisata Lembah Kalipancur";
             }else if(jarak==temp[7]){
-                end=bd4;lokasi="Gedung Sate";
+                end=wisata8;lokasi="Air Terjun Kalipancur Nogosaren";
+            }else if(jarak==temp[8]){
+                end=wisata9;lokasi="Watu Gunung";
+            }else if(jarak==temp[9]){
+                end=wisata10;lokasi="Candi Gedong Songo";
+            }else if(jarak==temp[10]){
+                end=wisata11;lokasi="Curug Lawe Benowo Kalisidi";
+            }else if(jarak==temp[11]){
+                end=wisata12;lokasi="Bukit Cinta Rawa Pening";
+            }else if(jarak==temp[12]){
+                end=wisata13;lokasi="Kolam Renang Tirto Agung Siwarak";
+            }else if(jarak==temp[13]){
+                end=wisata14;lokasi="Basecamp Mawar";
+            }else if(jarak==temp[14]){
+                end=wisata15;lokasi="Simpang Lima Semarang";
+            }else if(jarak==temp[15]){
+                end=wisata16;lokasi="Lawang Sewu";
             }
         }
 
@@ -320,84 +327,173 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         LatLng endloc = new LatLng(end.getLatitude(), end.getLongitude());
         mMap.addMarker(new MarkerOptions().position(endloc).title(lokasi));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(endloc,10));
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Intent i = new Intent(getApplicationContext(), Descriptor.class);
-                if (marker.getTitle().equalsIgnoreCase("kawah putih")) {
+                Intent i=new Intent(getApplicationContext(), Descriptor.class);
+                if (marker.getTitle().equalsIgnoreCase("Kampung Wisata Taman Lele"))
+                {
                     //handle click here
-                    i.putExtra("value", "1");
+                    i.putExtra("value","1");
                     startActivity(i);
-                } else if (marker.getTitle().equalsIgnoreCase("trans studio bandung")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Wisata Bahari Morosari"))
+                {
                     //handle click here
-                    i.putExtra("value", "2");
+                    i.putExtra("value","2");
                     startActivity(i);
-                } else if (marker.getTitle().equalsIgnoreCase("gedung sate")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Wisata Goa Kreo"))
+                {
                     //handle click here
-                    i.putExtra("value", "3");
+                    i.putExtra("value","3");
                     startActivity(i);
-                } else if (marker.getTitle().equalsIgnoreCase("situ patengan")) {
-                    i.putExtra("value", "4");
+                }else if (marker.getTitle().equalsIgnoreCase("Wisata Alam Wana Wisata Penggaron"))
+                {
+                    i.putExtra("value","4");
                     startActivity(i);
                     //handle click here
-                } else if (marker.getTitle().equalsIgnoreCase("Taman Ade Irma Suryani")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Umbul Sidomukti"))
+                {
                     //handle click here
-                    i.putExtra("value", "5");
-                    startActivity(i);
-
-                } else if (marker.getTitle().equalsIgnoreCase("Keraton Kasepuhan")) {
-                    i.putExtra("value", "6");
-                    startActivity(i);
-
-                    //handle click here
-                } else if (marker.getTitle().equalsIgnoreCase("banyu panas palimanan")) {
-                    //handle click here
-                    i.putExtra("value", "7");
+                    i.putExtra("value","5");
                     startActivity(i);
 
-                } else if (marker.getTitle().equalsIgnoreCase("pantai kejawanan")) {
-                    //handle click here
-                    i.putExtra("value", "8");
+                }else if (marker.getTitle().equalsIgnoreCase("Vanaprastha Gedongsongo Park"))
+                {
+                    i.putExtra("value","6");
                     startActivity(i);
 
-                } else if (marker.getTitle().equalsIgnoreCase("goa bumiayu")) {
                     //handle click here
-                    i.putExtra("value", "9");
+                }else if (marker.getTitle().equalsIgnoreCase("Desa Wisata Lembah Kalipancur"))
+                {
+                    //handle click here
+                    i.putExtra("value","7");
                     startActivity(i);
 
-                } else if (marker.getTitle().equalsIgnoreCase("situ gunung")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Air Terjun Kalipancur Nogosaren"))
+                {
                     //handle click here
-                    i.putExtra("value", "10");
+                    i.putExtra("value","8");
                     startActivity(i);
 
-                } else if (marker.getTitle().equalsIgnoreCase("situ sukarame")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Watu Gunung"))
+                {
                     //handle click here
-                    i.putExtra("value", "11");
+                    i.putExtra("value","9");
                     startActivity(i);
 
-                } else if (marker.getTitle().equalsIgnoreCase("taman rekreasi selabintana")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Candi Gedong Songo"))
+                {
                     //handle click here
-                    i.putExtra("value", "12");
+                    i.putExtra("value","10");
                     startActivity(i);
 
-                } else if (marker.getTitle().equalsIgnoreCase("Kebun Raya Bogor")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Curug Lawe Benowo Kalisidi"))
+                {
                     //handle click here
-                    i.putExtra("value", "13");
+                    i.putExtra("value","11");
                     startActivity(i);
 
-                } else if (marker.getTitle().equalsIgnoreCase("Danau Situ Gede")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Bukit Cinta Rawa Pening"))
+                {
                     //handle click here
-                    i.putExtra("value", "14");
+                    i.putExtra("value","12");
                     startActivity(i);
 
-                } else if (marker.getTitle().equalsIgnoreCase("Taman Safari Bogor")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Kolam Renang Tirto Agung Siwarak"))
+                {
                     //handle click here
-                    i.putExtra("value", "15");
+                    i.putExtra("value","13");
                     startActivity(i);
 
-                } else if (marker.getTitle().equalsIgnoreCase("Taman Wisata Mekarsari")) {
+                }else if (marker.getTitle().equalsIgnoreCase("Basecamp Mawar"))
+                {
                     //handle click here
-                    i.putExtra("value", "16");
+                    i.putExtra("value","14");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Simpang Lima Semarang"))
+                {
+                    //handle click here
+                    i.putExtra("value","15");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Lawang Sewu"))
+                {
+                    //handle click here
+                    i.putExtra("value","16");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Tugu Muda"))
+                {
+                    //handle click here
+                    i.putExtra("value","17");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Universitas Diponegoro, Kampus Tembalang Semarang"))
+                {
+                    //handle click here
+                    i.putExtra("value","18");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Universitas Diponegoro, Kampus Pleburan Semarang"))
+                {
+                    //handle click here
+                    i.putExtra("value","19");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Universitas Negeri Semarang"))
+                {
+                    //handle click here
+                    i.putExtra("value","20");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Gunung Ungaran"))
+                {
+                    //handle click here
+                    i.putExtra("value","21");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Candi Gedong Songo"))
+                {
+                    //handle click here
+                    i.putExtra("value","22");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Bukit Paralayang"))
+                {
+                    //handle click here
+                    i.putExtra("value","23");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Pondok Kopi Umbul Sidomukti"))
+                {
+                    //handle click here
+                    i.putExtra("value","24");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("RAGENTAR Outbound dan Olah Nyali"))
+                {
+                    //handle click here
+                    i.putExtra("value","25");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Browncanyon Semarang"))
+                {
+                    //handle click here
+                    i.putExtra("value","26");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Water Blaster"))
+                {
+                    //handle click here
+                    i.putExtra("value","27");
+                    startActivity(i);
+
+                }else if (marker.getTitle().equalsIgnoreCase("Masjid Agung Jawa Tengah"))
+                {
+                    //handle click here
+                    i.putExtra("value","28");
                     startActivity(i);
 
                 }

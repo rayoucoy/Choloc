@@ -31,7 +31,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".HomeActivity">
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +48,12 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/chatroom" />
+        <activity
+            android:name=".activity.ChatRoomActivity"
+            android:label="@string/app_name" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
@@ -79,33 +86,6 @@
                 android:value="com.skripsi.yudha.choloc.MapsActivity2" />
         </activity>
 
-        <activity android:name=".FriendList">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-                <category
-                    android:name="android.intent.category.NORMAL">
-                </category>
-            </intent-filter>
-        </activity>
-        <service android:name=".services.IMService"></service>
-
-        <activity android:name=".Messaging">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-                <category
-                    android:name="android.intent.category.NORMAL">
-                </category>
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".AddFriend"><intent-filter><action android:name="android.intent.action.MAIN"></action>
-            <category android:name="android.intent.category.NORMAL"></category>
-        </intent-filter>
-        </activity>
-        <activity android:name=".UnApprovedFriendList"><intent-filter><action android:name="android.intent.action.MAIN"></action>
-            <category android:name="android.intent.category.NORMAL"></category>
-        </intent-filter>
-        </activity>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
