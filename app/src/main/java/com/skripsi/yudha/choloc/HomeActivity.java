@@ -7,7 +7,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,14 +22,10 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
 
     Button ceklokasi, cekdekat;
     ImageButton chatlistbutton, friendlistbutton, mapsbutton;
-    public String kode="kode", KEY1 = "key1", KEY2 = "key2", KEY3 = "key3", KEY4 = "key4", LAT1 = "1", LAT2 = "2", LAT3 = "3", LAT4 = "4", LONG1 = "11", LONG2 = "22", LONG3 = "33", LONG4 = "44", CURLAT = "111", CURLONG = "222";
-    public static String satu, dua, tiga, empat, lat1, lat2, lat3, lat4, long1, long2, long3, long4;
+    public String kode="kode", CURLAT = "111", CURLONG = "222";
     protected LocationManager locationManager;
-    protected LocationListener locationListener;
     protected Context context;
-    String provider;
     public static String curlat = "-6.973981", curlong = "107.6293685";
-    protected boolean gps_enabled, network_enabled;
 
     //
     private RequestQueue mRequestQueue;
@@ -98,37 +93,6 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
             }
         });
 
-/*        ImageButton imageButtonChatlist = (ImageButton) findViewById(R.id.chatlist_button);
-        imageButtonChatlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = null;
-                i = new Intent(getBaseContext(), com.skripsi.yudha.choloc.activity.MainActivity.class);
-                startActivity(i);
-            }
-        });
-
-        chatlistbutton.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),
-                        com.skripsi.yudha.choloc.activity.MainActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
-        ImageButton imageButtonFriendList = (ImageButton)findViewById(R.id.friendlist_button);
-        imageButtonFriendList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Berpindah ke menu FriendList", Toast.LENGTH_SHORT).show();
-                Intent i;
-                i = new Intent(HomeActivity.this,FriendList.class);
-                startActivity(i);
-            }
-        });*/
-
         ImageButton imageButtonMaps = (ImageButton)findViewById(R.id.maps_button);
         imageButtonMaps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,20 +140,9 @@ public class HomeActivity extends ActionBarActivity implements LocationListener 
         return mInst;
     }
 
-    public <T> void addToRequestQueue(Request<T> req, String tag) {
-        req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
-        getRequestQueue().add(req);
-    }
-
     public <T> void addToRequestQueue(Request<T> req) {
         req.setTag(TAG);
         getRequestQueue().add(req);
-    }
-
-    public void cancelPendingRequests(Object tag) {
-        if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(tag);
-        }
     }
 
     public RequestQueue getRequestQueue() {

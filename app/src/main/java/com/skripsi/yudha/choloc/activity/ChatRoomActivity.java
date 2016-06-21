@@ -1,11 +1,8 @@
 package com.skripsi.yudha.choloc.activity;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -99,16 +96,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        /*mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
-                    // new push message is received
-                    handlePushNotification(intent);
-                }
-            }
-        };*/
-
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,39 +105,13 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         fetchChatThread();
     }
-/*
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        // registering the receiver for new notification
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Config.PUSH_NOTIFICATION));
-
-        NotificationUtils.clearNotifications();
-    }
-
-    @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-        super.onPause();
-    }
-*/
     /**
      * Handling new push message, will add the message to
      * recycler view and scroll it to bottom
      * */
     private void handlePushNotification(Intent intent) {
-/*        Message message = (Message) intent.getSerializableExtra("message");
-        String chatRoomId = intent.getStringExtra("chat_room_id");
 
-        if (message != null && chatRoomId != null) {
-            messageArrayList.add(message);
-            mAdapter.notifyDataSetChanged();
-            if (mAdapter.getItemCount() > 1) {
-                recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, null, mAdapter.getItemCount() - 1);
-            }
-        }*/
     }
 
     /**
@@ -232,7 +193,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id_user", usid);//HomeActivity.getInstance().getPrefManager().getUser().getId());
+                params.put("id_user", usid);
                 params.put("message", message);
 
                 Log.e(TAG, "Params: " + params.toString());
@@ -240,7 +201,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                 return params;
             };
         };
-
 
         // disabling retry policy so that it won't make
         // multiple http calls
@@ -254,7 +214,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         //Adding request to request queue
         HomeActivity.getInstance().addToRequestQueue(strReq);
     }
-
 
     /**
      * Fetching all the messages of a single chat room

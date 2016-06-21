@@ -1,7 +1,7 @@
 package com.skripsi.yudha.choloc.app;
 
 /**
- * Created by Lincoln on 06/01/16.
+ * Created by yudha on 06/01/16.
  */
 public class EndPoints {
 

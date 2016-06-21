@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -57,6 +58,9 @@ public class MapsActivity extends FragmentActivity {
     private static LatLng LAT27= new LatLng(-7.022884,110.438683);
     private static LatLng LAT28= new LatLng(-6.983540,110.445196);
 
+	//jarak max
+	private static double MaxJarak = 5.0; //5KM or less
+
     private static LatLng CURRENT= new LatLng(-7.048015,110.441016);
     public static String KEY1="key1",KEY2="key2",KEY3="key3",KEY4="key4",lat1="1", lat2="2",lat3="3",lat4="4",long1="11",long2="22",long3="33",long4="44",CURLAT="111",CURLONG="222";
     public static String latsek,longsek,lokasi1,lokasi2,lokasi3,lokasi4,lokasi5,lokasi6,lokasi7,lokasi8,lokasi9,lokasi10,
@@ -67,6 +71,32 @@ public class MapsActivity extends FragmentActivity {
     GoogleMap googleMap;
     final String TAG = "PathGoogleMapActivity";
     SessionManagement session;
+	
+	public static double distanceInKM(LatLng c1, LatLng c2) {
+		int R = 6371; // Radius of the earth in km
+		  
+		double lat1 = c1.latitude;
+		double lat2 = c2.latitude;
+		  
+		double lon1 = c1.longitude;
+		double lon2 = c2.longitude;
+		  
+		double dLat = deg2rad(lat2-lat1); 
+		double dLon = deg2rad(lon2-lon1);
+		  
+		double a = 
+		Math.sin(dLat/2) * Math.sin(dLat/2) +
+		Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+		Math.sin(dLon/2) * Math.sin(dLon/2); 
+		  
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+		double d = R * c; // Distance in km
+		return d;
+	}
+
+	public static double deg2rad(double deg) {
+		return deg * (Math.PI/180);
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +157,8 @@ public class MapsActivity extends FragmentActivity {
         downloadTask.execute(url);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CURRENT, 13));
         addMarkers();
+		
+		//
 
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
@@ -135,167 +167,256 @@ public class MapsActivity extends FragmentActivity {
                 if (marker.getTitle().equalsIgnoreCase("Kampung Wisata Taman Lele"))
                 {
                     //handle click here
-                    i.putExtra("value","1");
-                    startActivity(i);
+					//memasukan fungsi batasan location based service
+					if(distanceInKM(CURRENT,LAT1) <= MaxJarak){
+						i.putExtra("value","1");
+						startActivity(i);
+					} else {
+						Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+					}
                 }else if (marker.getTitle().equalsIgnoreCase("Wisata Bahari Morosari"))
                 {
                     //handle click here
-                    i.putExtra("value","2");
-                    startActivity(i);
+                    if(distanceInKM(CURRENT,LAT2) <= MaxJarak){
+                        i.putExtra("value","2");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Wisata Goa Kreo"))
                 {
                     //handle click here
-                    i.putExtra("value","3");
-                    startActivity(i);
+                    if(distanceInKM(CURRENT,LAT3) <= MaxJarak){
+                        i.putExtra("value","3");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Wisata Alam Wana Wisata Penggaron"))
                 {
-                    i.putExtra("value","4");
-                    startActivity(i);
                     //handle click here
+                    if(distanceInKM(CURRENT,LAT4) <= MaxJarak){
+                        i.putExtra("value","4");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Umbul Sidomukti"))
                 {
                     //handle click here
-                    i.putExtra("value","5");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT5) <= MaxJarak){
+                        i.putExtra("value","5");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Vanaprastha Gedongsongo Park"))
                 {
-                    i.putExtra("value","6");
-                    startActivity(i);
-
                     //handle click here
+                    if(distanceInKM(CURRENT,LAT6) <= MaxJarak){
+                        i.putExtra("value","6");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Desa Wisata Lembah Kalipancur"))
                 {
                     //handle click here
-                    i.putExtra("value","7");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT7) <= MaxJarak){
+                        i.putExtra("value","7");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Air Terjun Kalipancur Nogosaren"))
                 {
                     //handle click here
-                    i.putExtra("value","8");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT8) <= MaxJarak){
+                        i.putExtra("value","8");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Watu Gunung"))
                 {
                     //handle click here
-                    i.putExtra("value","9");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT9) <= MaxJarak){
+                        i.putExtra("value","9");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Candi Gedong Songo"))
                 {
                     //handle click here
-                    i.putExtra("value","10");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT10) <= MaxJarak){
+                        i.putExtra("value","10");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Curug Lawe Benowo Kalisidi"))
                 {
                     //handle click here
-                    i.putExtra("value","11");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT11) <= MaxJarak){
+                        i.putExtra("value","11");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Bukit Cinta Rawa Pening"))
                 {
                     //handle click here
-                    i.putExtra("value","12");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT12) <= MaxJarak){
+                        i.putExtra("value","12");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Kolam Renang Tirto Agung Siwarak"))
                 {
                     //handle click here
-                    i.putExtra("value","13");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT13) <= MaxJarak){
+                        i.putExtra("value","13");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Basecamp Mawar"))
                 {
                     //handle click here
-                    i.putExtra("value","14");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT14) <= MaxJarak){
+                        i.putExtra("value","14");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Simpang Lima Semarang"))
                 {
                     //handle click here
-                    i.putExtra("value","15");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT15) <= MaxJarak){
+                        i.putExtra("value","15");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Lawang Sewu"))
                 {
                     //handle click here
-                    i.putExtra("value","16");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT16) <= MaxJarak){
+                        i.putExtra("value","16");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Tugu Muda"))
                 {
                     //handle click here
-                    i.putExtra("value","17");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT17) <= MaxJarak){
+                        i.putExtra("value","17");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Universitas Diponegoro, Kampus Tembalang Semarang"))
                 {
                     //handle click here
-                    i.putExtra("value","18");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT18) <= MaxJarak){
+                        i.putExtra("value","18");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Universitas Diponegoro, Kampus Pleburan Semarang"))
                 {
                     //handle click here
-                    i.putExtra("value","19");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT19) <= MaxJarak){
+                        i.putExtra("value","19");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Universitas Negeri Semarang"))
                 {
                     //handle click here
-                    i.putExtra("value","20");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT20) <= MaxJarak){
+                        i.putExtra("value","20");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Gunung Ungaran"))
                 {
                     //handle click here
-                    i.putExtra("value","21");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT21) <= MaxJarak){
+                        i.putExtra("value","21");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Candi Gedong Songo"))
                 {
                     //handle click here
-                    i.putExtra("value","22");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT22) <= MaxJarak){
+                        i.putExtra("value","22");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Bukit Paralayang"))
                 {
                     //handle click here
-                    i.putExtra("value","23");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT23) <= MaxJarak){
+                        i.putExtra("value","23");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Pondok Kopi Umbul Sidomukti"))
                 {
                     //handle click here
-                    i.putExtra("value","24");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT24) <= MaxJarak){
+                        i.putExtra("value","24");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("RAGENTAR Outbound dan Olah Nyali"))
                 {
                     //handle click here
-                    i.putExtra("value","25");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT25) <= MaxJarak){
+                        i.putExtra("value","25");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Browncanyon Semarang"))
                 {
                     //handle click here
-                    i.putExtra("value","26");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT26) <= MaxJarak){
+                        i.putExtra("value","26");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Water Blaster"))
                 {
                     //handle click here
-                    i.putExtra("value","27");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT27) <= MaxJarak){
+                        i.putExtra("value","27");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }else if (marker.getTitle().equalsIgnoreCase("Masjid Agung Jawa Tengah"))
                 {
                     //handle click here
-                    i.putExtra("value","28");
-                    startActivity(i);
-
+                    if(distanceInKM(CURRENT,LAT28) <= MaxJarak){
+                        i.putExtra("value","28");
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Lokasi anda sekarang terlalu jauh dari objek ini", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

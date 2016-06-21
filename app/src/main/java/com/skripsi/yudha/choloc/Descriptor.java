@@ -27,13 +27,9 @@ public class Descriptor extends AppCompatActivity {
         Intent i=getIntent();
         String a=i.getStringExtra("value");
         if (a.equalsIgnoreCase("1")){
-            img.setImageResource(R.drawable.kawah_putih_ciwidey);
             title.setText("Kampung Wisata Taman Lele");
-            desc.setText(R.string.desc_kawahputih);
         }else if (a.equalsIgnoreCase("2")) {
-            img.setImageResource(R.drawable.tsb);
             title.setText("Wisata Bahari Morosari");
-            desc.setText(R.string.desc_tsm);
         }else if (a.equalsIgnoreCase("3")) {
             img.setImageResource(R.drawable.gedungsate);
             title.setText("Wisata Goa Kreo");
