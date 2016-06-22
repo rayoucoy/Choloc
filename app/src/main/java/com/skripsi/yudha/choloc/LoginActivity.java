@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private final String LOG_TAG = LoginActivity.class.getSimpleName();
 
+    
     String[] resultStrs = new String[1000];
     boolean passwordDb = false;
     boolean emailDb = false;
