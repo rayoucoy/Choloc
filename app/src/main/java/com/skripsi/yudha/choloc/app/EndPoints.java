@@ -14,4 +14,5 @@ public class EndPoints {
     public static final String CHAT_ROOMS = BASE_URL + "/chat_rooms";
     public static final String CHAT_THREAD = BASE_URL + "/chat_rooms/_ID_";
     public static final String CHAT_ROOM_MESSAGE = BASE_URL + "/chat_rooms/_ID_/message";
+    public static final String OBJEK_WISATA = BASE_URL + "/objek_wisata";
 }
